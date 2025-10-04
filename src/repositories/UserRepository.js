@@ -26,6 +26,10 @@ class UserRepository {
         return UserModel.findByEmail(email);
     }
 
+    static async findByPosition(position) {
+        return UserModel.findByPosition(position);
+    }
+
     static async authenticate(email, password) {
         return UserModel.authenticate(email, password);
     }

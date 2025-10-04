@@ -41,6 +41,12 @@ class UserModel{
         .where({ email })
         .first()
     }
+
+    static async findByPosition(position) {
+        // Retorna todos os usuários que possuem a posição informada.
+        return knex('users').where({ position });
+    }
+    
 }
 
 module.exports = UserModel;

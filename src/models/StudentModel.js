@@ -13,9 +13,9 @@ class StudentModel {
         .select(['id_student','email', 'rgm', 'created_by_user_id', 'updated_by_user_id']);
     }
 
-    static async create(studentData) {
+    static async create(studentData, creatorId, creatorPosition) {
         const [newStudent] = await knex(TABLE_NAME)
-        .insert(studentData)
+        .insert(studentData, creatorId, creatorPosition)
         .returning(['id_student','email', 'rgm', 'created_by_user_id', 'updated_by_user_id']);
         return newStudent;
     }
@@ -46,9 +46,9 @@ class StudentModel {
         .first();
     }
 
-    static async findByEmailAndAcessCode(email, acess_code) {
+    static async findByEmailAndAcessCode(email, access_code) {
         return knex(TABLE_NAME)
-        .where({ email, acess_code })
+        .where({ email, access_code })
         .first();
     }
 }

@@ -19,8 +19,6 @@ exports.up = function(knex) {
    .references('id_user')
    .inTable('users')
    .notNullable()
-
-
   
    table
    .integer('created_by_user_id')
@@ -30,7 +28,6 @@ exports.up = function(knex) {
    .inTable('users')
    .onDelete('RESTRICT')
    .onUpdate('CASCADE');
-
 
    table
    .integer('updated_by_user_id')

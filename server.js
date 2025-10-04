@@ -17,6 +17,9 @@ app.use(express.urlencoded({ extended: true }));
 const userRoutes = require('./src/routes/userRoutes');
 app.use('/', userRoutes);
 
+const studentRoutes = require('./src/routes/studentRoutes');
+app.use('/students', studentRoutes)
+
 app.get('/register', (req, res) => {
     res.render('register');
 })
