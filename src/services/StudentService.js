@@ -36,7 +36,6 @@ class StudentService {
             rgm: studentData.rgm,
             current_semester: studentData.current_semester,
             access_code: access_code,
-            preceptor_user_id: studentData.preceptor_user_id,
             created_by_user_id: creatorId,
             updated_by_user_id: creatorId
         }

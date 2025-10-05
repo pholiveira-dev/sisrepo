@@ -6,8 +6,16 @@ const StudentController = require('../controllers/studentController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const roleMiddleware = require('../middlewares/roleMiddleware');
 
-// ROTA PRIVADA PARA A CRIAÇÃO DO ALUNO
+// ADICIONADA AGORA PARA TESTAR COM FRONT END
+router.get('/create',
+    authMiddleware,
+    roleMiddleware.canCreateStudent,
+    (req, res) => {
+        res.render('cadastrarAluno', { message: null, isSuccess: false });
+    }
+)
 
+// ROTA PRIVADA PARA A CRIAÇÃO DO ALUNO
 router.post('/',
     authMiddleware,
     roleMiddleware.canCreateStudent,

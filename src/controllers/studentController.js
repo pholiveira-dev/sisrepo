@@ -17,13 +17,13 @@ async function postStudent(req, res) {
         const creatorId = req.user.id;
         const creatorPosition = req.user.position;
 
-        const { name, email, rgm, current_semester, preceptor_user_id } = req.body;
+        const { name, email, rgm, current_semester } = req.body;
 
-        const studentData = { name, email, rgm, current_semester, preceptor_user_id };
+        const studentData = { name, email, rgm, current_semester };
 
         const newStudent = await StudentService.create(studentData, creatorId, creatorPosition);
 
-        return  res.status(200).json(newStudent);
+        return  res.status(200).json(newStudent); 
 
     } catch (error) {
         console.error(error);

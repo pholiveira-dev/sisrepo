@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Aluno | SisRepo</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .card { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); width: 100%; max-width: 500px; }
+        h1 { text-align: center; color: #1e3a8a; margin-bottom: 1.5rem; font-size: 1.8rem; }
+        label { display: block; margin-top: 1rem; margin-bottom: 0.25rem; font-weight: 600; color: #333; }
+        input[type="text"], input[type="email"], input[type="number"] { width: 100%; padding: 0.75rem; margin-bottom: 0.5rem; border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box; transition: border-color 0.2s; }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus { border-color: #3b82f6; outline: none; }
+        button { background-color: #1e3a8a; color: white; padding: 0.8rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 1.5rem; font-weight: 600; transition: background-color 0.2s; }
+        button:hover { background-color: #1e40af; }
+        .message { margin-top: 1.5rem; padding: 1rem; border-radius: 6px; text-align: center; font-weight: 500; }
+        .success { background-color: #d1fae5; color: #065f46; border: 1px solid #10b981; }
+        .error { background-color: #fee2e2; color: #991b1b; border: 1px solid #f87171; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Novo Aluno</h1>
+        
+        <!-- Bloco para feedback de sucesso ou erro (passado do backend) -->
+        <% if (locals.message) { %>
+            <div class="message <%= locals.isSuccess ? 'success' : 'error' %>">
+                <%= message %>
+            </div>
+        <% } %>
+
+        <!-- A rota POST /students é usada para a criação -->
+        <form action="/students" method="POST">
+            
+            <label for="name">Nome Completo:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="rgm">RGM (Registro Geral de Matrícula):</label>
+            <input type="text" id="rgm" name="rgm" required placeholder="Apenas números">
+
+            <label for="current_semester">Semestre Atual:</label>
+            <input type="number" id="current_semester" name="current_semester" required min="1" max="12">
+
+            <label for="preceptor_user_id">ID do Preceptor (Obrigatório):</label>
+            <input type="text" id="preceptor_user_id" name="preceptor_user_id" required placeholder="ID do usuário que será o preceptor">
+
+            <button type="submit">Cadastrar Aluno</button>
+        </form>
+    </div>
+</body>
+</html>
