@@ -1,150 +1,128 @@
 # 🏥 SisRepo - Sistema de Gestão de Reposições Acadêmicas
 
-O **SisRepo** é uma API RESTful desenvolvida em Node.js para gerenciar e rastrear agendamentos e reposições de alunos em estágios clínicos/laboratoriais. O sistema permite o cadastro de alunos, a criação de slots de agendamento (schedules) e a alocação dinâmica do agendamento para cada reposição.
+![Badge de Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
+![Badge de Licença](https://img.shields.io/badge/license-MIT-blue)
+![Badge do Node.js](https://img.shields.io/badge/Node.js-18.x-green)
+
+O **SisRepo** é uma API RESTful projetada para simplificar o gerenciamento e o rastreamento de reposições de aulas para alunos em estágios clínicos e laboratoriais. A plataforma permite o cadastro de alunos, a criação de horários disponíveis (slots) e a alocação dinâmica desses horários para as reposições necessárias.
+
+## ✨ Funcionalidades
+
+- **Gestão de Alunos:** Cadastro, consulta e atualização de informações dos estudantes.
+- **Criação de Agendamentos (Schedules):** Definição de datas, horários e locais disponíveis para reposição.
+- **Alocação de Reposições:** Associação de um aluno a um horário de reposição disponível.
+- **Rastreamento:** Acompanhamento do status de cada reposição.
+- **API Segura:** (Futuro) Proteção de rotas com autenticação baseada em JWT.
 
 ## 🚀 Tecnologias Utilizadas
 
-| Categoria | Tecnologia | Descrição |
-| :--- | :--- | :--- |
-| **Backend** | Node.js | Ambiente de execução. |
-| **Framework** | Express | Framework web para roteamento e middlewares. |
-| **Banco de Dados** | SQLite3 | Banco de dados leve e rápido para desenvolvimento. |
-| **ORM/Query Builder** | Knex.js | Gerenciamento de consultas e migrações do banco de dados. |
-| **Testes** | Jest | Framework para testes unitários. |
-| **Autenticação** | JWT | Implementação futura para proteger rotas. |
+| Categoria         | Tecnologia    | Descrição                                         |
+| :---------------- | :------------ | :------------------------------------------------ |
+| **Backend** | Node.js       | Ambiente de execução JavaScript no servidor.      |
+| **Framework** | Express       | Framework para roteamento e middlewares.          |
+| **Banco de Dados**| SQLite3       | Banco de dados relacional para desenvolvimento.   |
+| **Query Builder** | Knex.js       | Gerenciamento de migrations e consultas SQL.      |
+| **Testes** | Jest          | Framework para testes unitários e de integração.  |
 
-## ⚙️ Pré-Requisitos
+## ⚙️ Pré-requisitos
 
-Antes de começar, certifique-se de ter instalado:
+Antes de começar, certifique-se de que você tem os seguintes softwares instalados em sua máquina:
 
-* [Node.js](https://nodejs.org/en/) (versão LTS recomendada)
-* [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/) (gerenciador de pacotes)
-* **Git**
+- [Node.js](https://nodejs.org/en/) (versão 18.x ou superior)
+- [NPM](https://www.npmjs.com/) ou [Yarn](https://yarnpkg.com/) (gerenciador de pacotes)
+- [Git](https://git-scm.com/) (para versionamento de código)
 
-* ## 📝 Instalação e Configuração
+## 📝 Instalação e Execução
 
-Siga os passos abaixo para configurar o projeto localmente.
+Siga os passos abaixo para configurar e rodar o projeto em seu ambiente local.
 
-### 1. Clonar o Repositório
-
+**1. Clone o repositório:**
 ```bash
 git clone [https://github.com/pholiveira-dev/sisrepo.git](https://github.com/pholiveira-dev/sisrepo.git)
 cd sisrepo
 
-npm install
-# ou
-yarn
-
-    Pergunta respondida com sucesso
-
-O GitHub não retornou diretamente o repositório pholiveira-dev/sisrepo, mas retornou um perfil chamado josepholiveira. Como não consigo acessar o código do seu repositório diretamente (o link pode estar incorreto, o repositório pode ser privado, ou o índice de busca não o encontrou), vou fazer a análise baseada nas conversas anteriores e no seu modelo de código que você me forneceu.
-
-Assumindo que o seu projeto SisRepo está usando a estrutura Node.js/Express/Knex que desenvolvemos, vamos criar um README.md completo, seguindo as melhores práticas de documentação.
-
-Estrutura do README.md para o SisRepo
-
-O README.md é o manual de instruções do seu projeto. Ele deve ser dividido em seções claras.
-
-Título e Descrição
-
-Markdown
-
-# 🏥 SisRepo - Sistema de Gestão de Reposições Acadêmicas
-
-O **SisRepo** é uma API RESTful desenvolvida em Node.js para gerenciar e rastrear agendamentos e reposições de alunos em estágios clínicos/laboratoriais. O sistema permite o cadastro de alunos, a criação de slots de agendamento (schedules) e a alocação dinâmica de preceptores a cada reposição.
-
-## 🚀 Tecnologias Utilizadas
-
-| Categoria | Tecnologia | Descrição |
-| :--- | :--- | :--- |
-| **Backend** | Node.js | Ambiente de execução. |
-| **Framework** | Express | Framework web para roteamento e middlewares. |
-| **Banco de Dados** | SQLite3 | Banco de dados leve e rápido para desenvolvimento. |
-| **ORM/Query Builder** | Knex.js | Gerenciamento de consultas e migrações do banco de dados. |
-| **Testes** | Jest | Framework para testes unitários. |
-| **Autenticação** | JWT | Implementação futura para proteger rotas. |
-
-Pré-Requisitos
-
-Markdown
-
-## ⚙️ Pré-Requisitos
-
-Antes de começar, certifique-se de ter instalado:
-
-* [Node.js](https://nodejs.org/en/) (versão LTS recomendada)
-* [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/) (gerenciador de pacotes)
-* **Git**
-
-Instalação e Configuração
-
-Markdown
-
-## 📝 Instalação e Configuração
-
-Siga os passos abaixo para configurar o projeto localmente.
-
-### 1. Clonar o Repositório
-
-```bash
-git clone [https://github.com/pholiveira-dev/sisrepo.git](https://github.com/pholiveira-dev/sisrepo.git)
-cd sisrepo
-
-2. Instalar Dependências
-
-Bash
+2. Instale as dependências:
 
 npm install
 # ou
-yarn
+yarn install
 
-3. Configurar Variáveis de Ambiente
+3. Configure as variáveis de ambiente:
+Crie um arquivo chamado .env na raiz do projeto e preencha-o com as configurações necessárias. Você pode usar o arquivo .env.example como base.
 
-Crie um arquivo chamado .env na raiz do projeto e preencha com suas configurações.
+.env
 
-Exemplo de .env (SQLite3):
-
+# Ambiente da aplicação (development, production)
 NODE_ENV=development
-# Chave secreta para JWT (escolha uma string aleatória)
-APP_SECRET=sua-chave-secreta-forte
-# Caminho do banco de dados SQLite
+
+# Segredo para geração de tokens JWT
+APP_SECRET=sua-chave-secreta-aqui
+
+# Configuração do Banco de Dados
 DB_CLIENT=sqlite3
-DB_FILENAME=./db/sisrepo.sqlite
+DB_FILENAME=./src/database/db.sqlite
 
-4. Rodar as Migrações do Banco de Dados
-
-Use o Knex para criar as tabelas (users, students, schedules, replacement):
+4. Execute as migrações do banco de dados:
+Este comando criará as tabelas necessárias no banco de dados SQLite.
 
 npx knex migrate:latest
 
-### Como Rodar o Projeto
+5. Inicie o servidor:
 
-```markdown
-## ▶️ Como Rodar a Aplicação
-
-Para iniciar o servidor em modo de desenvolvimento:
-
-```bash
 npm run dev
 # ou
 yarn dev
 
-A API estará rodando em http://localhost:3333 (ou a porta configurada).
+🎉 A API estará disponível em http://localhost:3333.
 
-### Testes
+🧪 Testes
 
-```markdown
-## 🧪 Testes Unitários
+O projeto utiliza o Jest para garantir a qualidade e o funcionamento correto das funcionalidades. Para executar a suíte de testes, use o comando:
 
-O projeto utiliza **Jest** para testes unitários.
-
-Para rodar todos os testes e verificar a qualidade do código:
-
-```bash
 npm test
 # ou
 yarn test
 
-Nota: Assegure-se de que a configuração de mocks do Knex em src/__mocks__/knex.js esteja configurada corretamente para evitar tentativas de conexão com o banco de dados real.
+🛣️ Endpoints da API
 
-Este `README.md` cobre todas as informações críticas: **O quê**, **Como instalar** e **Como usar/testar**. Você gostaria de adicionar uma seção sobre as **Rotas da API** (endpoints) ou sobre a **Estrutura de Pastas**?
+Abaixo estão os principais endpoints disponíveis na API.
+
+Alunos (/students)
+
+    POST /students: Cria um novo aluno.
+
+    GET /students: Lista todos os alunos.
+
+    GET /students/:id: Retorna os detalhes de um aluno específico.
+
+Agendamentos (/schedules)
+
+    POST /schedules: Cria um novo slot de agendamento.
+
+    GET /schedules: Lista todos os slots disponíveis.
+
+Reposições (/replacements)
+
+    POST /replacements: Agenda uma reposição para um aluno em um slot.
+
+    GET /replacements: Lista todas as reposições agendadas.
+
+    DELETE /replacements/:id: Cancela uma reposição.
+
+🤝 Como Contribuir
+
+Contribuições são sempre bem-vindas! Se você deseja contribuir com o projeto, siga os passos abaixo:
+
+    Faça um Fork deste repositório.
+
+    Crie uma nova Branch: git checkout -b feature/sua-feature.
+
+    Faça suas alterações e realize o Commit: git commit -m 'feat: Adiciona nova funcionalidade'.
+
+    Envie para a sua Branch: git push origin feature/sua-feature.
+
+    Abra um Pull Request.
+
+📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
