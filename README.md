@@ -41,6 +41,7 @@ Antes de começar, certifique-se de que você tem os seguintes softwares instala
 - [Node.js](https://nodejs.org/en/) (versão 18.x ou superior)
 - [NPM](https://www.npmjs.com/) ou [Yarn](https://yarnpkg.com/) (gerenciador de pacotes)
 - [Git](https://git-scm.com/) (para versionamento de código)
+- **Opcional, mas Recomendado:** Uma instância local do **PostgreSQL** ou Docker para simular o ambiente de produção.
 
 ## Instalação e Execução
 
@@ -84,6 +85,16 @@ npm run dev
 yarn dev
 
 🎉 A API estará disponível em http://localhost:3333.
+
+🛡️ Autenticação e Autorização
+
+Para acessar as rotas privadas da API, o usuário deve enviar um Token JWT válido no cabeçalho da requisição.
+
+    Login: Envie um POST para /auth/login com email e senha para obter o Token.
+
+    Uso do Token: Inclua o Token no cabeçalho de todas as requisições privadas no formato:
+    CHAVE (KEY)	VALOR (VALUE)
+    Authorization	Bearer [SEU TOKEN JWT]
 
 🧪 Testes
 
