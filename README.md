@@ -6,15 +6,25 @@
 
 O **SisRepo** é uma API RESTful projetada para simplificar o gerenciamento e o rastreamento de reposições de aulas para alunos em estágios clínicos e laboratoriais. A plataforma permite o cadastro de alunos, a criação de horários disponíveis (slots) e a alocação dinâmica desses horários para as reposições necessárias.
 
-## ✨ Funcionalidades
+## Funcionalidades principais
 
-- **Gestão de Alunos:** Cadastro, consulta e atualização de informações dos estudantes.
-- **Criação de Agendamentos (Schedules):** Definição de datas, horários e locais disponíveis para reposição.
-- **Alocação de Reposições:** Associação de um aluno a um horário de reposição disponível.
-- **Rastreamento:** Acompanhamento do status de cada reposição.
-- **API Segura:** (Futuro) Proteção de rotas com autenticação baseada em JWT.
+A arquitetura do SisRepo foi definida para garantir um ambiente de desenvolvimento eficiente e um sistema de produção confiável e escalável.
 
-## 🚀 Tecnologias Utilizadas
+## Tecnologias e Justificativa das Escolhas
+
+| Categoria | Tecnologia | Justificativa da Escolha |
+| :--- | :--- | :--- |
+| **Backend** | **Node.js** | Escolhido pela sua **natureza assíncrona e não-bloqueante**, ideal para construir APIs de alta performance que lidam com múltiplas requisições simultaneamente, garantindo respostas rápidas. |
+| **Framework** | **Express** | O *framework* minimalista padrão do Node.js. Oferece flexibilidade e leveza, sendo perfeito para o controle granular de roteamento, *middlewares* de segurança e manipulação de requisições. |
+| **Banco de Dados** | **PostgreSQL** | **Escolha principal devido à sua robustez, confiabilidade (ACID compliance) e suporte avançado a dados relacionais.** É ideal para um sistema acadêmico onde a integridade dos dados (relações entre alunos, agendamentos e usuários) é crítica. Oferece também funcionalidades avançadas como *Triggers* e *Stored Procedures*. |
+| **Query Builder** | **Knex.js** | Um construtor de consultas SQL versátil e poderoso. Permite escrever consultas de forma segura e legível em JavaScript, protegendo contra SQL Injection e facilitando a transição entre diferentes dialetos de banco de dados (SQLite no dev, Postgres na prod). |
+| **Banco de Dados (Dev)** | **SQLite3** | Utilizado exclusivamente para **desenvolvimento local e testes unitários**, devido à sua instalação zero-configuração e ao armazenamento em um único arquivo, agilizando o setup do ambiente. |
+| **Segurança** | **JWT & Middlewares** | A autenticação é feita via JWT, que é um padrão leve e *stateless*. O controle de acesso (RBAC) é implementado através de *middlewares* no Express, garantindo a separação de responsabilidades (Autenticação vs. Autorização). |
+| **Testes** | **Jest** | Framework de testes rápido e amplamente adotado no ecossistema JavaScript, usado para testes unitários em todas as camadas e testes de integração de rotas, garantindo a qualidade do código. |
+
+
+
+## Tecnologias Utilizadas
 
 | Categoria         | Tecnologia    | Descrição                                         |
 | :---------------- | :------------ | :------------------------------------------------ |
@@ -24,7 +34,7 @@ O **SisRepo** é uma API RESTful projetada para simplificar o gerenciamento e o 
 | **Query Builder** | Knex.js       | Gerenciamento de migrations e consultas SQL.      |
 | **Testes** | Jest          | Framework para testes unitários e de integração.  |
 
-## ⚙️ Pré-requisitos
+## Pré-requisitos
 
 Antes de começar, certifique-se de que você tem os seguintes softwares instalados em sua máquina:
 
@@ -32,7 +42,7 @@ Antes de começar, certifique-se de que você tem os seguintes softwares instala
 - [NPM](https://www.npmjs.com/) ou [Yarn](https://yarnpkg.com/) (gerenciador de pacotes)
 - [Git](https://git-scm.com/) (para versionamento de código)
 
-## 📝 Instalação e Execução
+## Instalação e Execução
 
 Siga os passos abaixo para configurar e rodar o projeto em seu ambiente local.
 
