@@ -27,6 +27,8 @@ app.get('/register', (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login');
 })
+const schedulesRouter = require('./src/routes/scheduleRoutes');
+app.use('/schedules', schedulesRouter);
 
 const PORT = 3000;
 

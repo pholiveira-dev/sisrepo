@@ -13,6 +13,7 @@ async function loginUser(req, res) {
         }
 
         const user = await UserService.authenticate(email, password);
+        console.log('Usuário autenticado:', user);
 
         // CRIAÇÃO DO TOKEN JWT
 
@@ -98,7 +99,7 @@ async function putUser(req, res) {
         return res.status(400).json({ message: 'Pelo menos um campo (nome, email, senha ou posição) devem ser fornecidos.' })
     }
 
-    const  update  = await UserService.update(id_user, userData);
+    const update  = await UserService.update(id_user, userData);
 
         return res.status(200).json(update);
 

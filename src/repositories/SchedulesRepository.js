@@ -20,6 +20,22 @@ class SchedulesRepository {
     static async delete(id_schedule) {
         return SchedulesModel.delete(id_schedule);
     }
+
+    static async findByEmail(email) {
+        return SchedulesModel.findByEmail(email);
+    }
+
+    static async countByDate(schedule_date) {
+        return SchedulesModel.countByDate(schedule_date);
+    }
+
+    static async findByDateAndShift(schedule_date, shift) {
+        return SchedulesModel.findByDateAndShift(schedule_date, shift)
+    }
+
+    static async calculateMaxCapacity(max_capacity) {
+        return SchedulesModel.calculateMaxCapacity(max_capacity);
+    }
 }
 
 module.exports = SchedulesRepository;
