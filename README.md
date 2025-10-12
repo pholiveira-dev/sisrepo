@@ -1,8 +1,19 @@
 # 🏥 SisRepo - Sistema de Gestão de Reposições Acadêmicas
 
-![Badge de Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
-![Badge de Licença](https://img.shields.io/badge/license-MIT-blue)
-![Badge do Node.js](https://img.shields.io/badge/Node.js-18.x-green)
+![Node.js](https://img.shields.io/badge/Node.js-18.x-green?logo=node.js)
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![Status](https://img.shields.io/badge/status-active-success)
+
+## 📑 Sumário
+- [Descrição](#-sisrepo---sistema-de-gestão-de-reposições-acadêmicas)
+- [Tecnologias e Justificativas](#-tecnologias-e-justificativa-das-escolhas)
+- [Instalação](#-instalação-e-execução)
+- [Autenticação](#️-autenticação-e-autorização)
+- [Endpoints](#️-endpoints-da-api)
+- [Testes](#-testes)
+- [Contribuição](#-como-contribuir)
+- [Licença](#-licença)
+
 
 O **SisRepo** é uma API RESTful projetada para simplificar o gerenciamento e o rastreamento de reposições de aulas para alunos em estágios clínicos e laboratoriais. A plataforma permite o cadastro de alunos, a criação de horários disponíveis (slots) e a alocação dinâmica desses horários para as reposições necessárias.
 
