@@ -1,4 +1,4 @@
-# 🏥 SisRepo - Sistema de Gestão de Reposições Acadêmicas
+## SisRepo - Sistema de Gestão de Reposições Acadêmicas
 
 ![Node.js](https://img.shields.io/badge/Node.js-18.x-green?logo=node.js)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
@@ -63,13 +63,13 @@ Siga os passos abaixo para configurar e rodar o projeto em seu ambiente local.
 git clone [https://github.com/pholiveira-dev/sisrepo.git](https://github.com/pholiveira-dev/sisrepo.git)
 cd sisrepo
 
-2. Instale as dependências:
+**2. Instale as dependências:**
 
 npm install
 # ou
 yarn install
 
-3. Configure as variáveis de ambiente:
+**3. Configure as variáveis de ambiente:**
 Crie um arquivo chamado .env na raiz do projeto e preencha-o com as configurações necessárias. Você pode usar o arquivo .env.example como base.
 
 .env
@@ -84,20 +84,20 @@ APP_SECRET=sua-chave-secreta-aqui
 DB_CLIENT=sqlite3
 DB_FILENAME=./src/database/db.sqlite
 
-4. Execute as migrações do banco de dados:
+**4. Execute as migrações do banco de dados:**
 Este comando criará as tabelas necessárias no banco de dados SQLite.
 
 npx knex migrate:latest
 
-5. Inicie o servidor:
+**5. Inicie o servidor:**
 
 npm run dev
 # ou
 yarn dev
 
-🎉 A API estará disponível em http://localhost:3333.
+# A API estará disponível em http://localhost:3333.
 
-🛡️ Autenticação e Autorização
+# Autenticação e Autorização
 
 Para acessar as rotas privadas da API, o usuário deve enviar um Token JWT válido no cabeçalho da requisição.
 
@@ -107,7 +107,7 @@ Para acessar as rotas privadas da API, o usuário deve enviar um Token JWT váli
     CHAVE (KEY)	VALOR (VALUE)
     Authorization	Bearer [SEU TOKEN JWT]
 
-🧪 Testes
+# Testes
 
 O projeto utiliza o Jest para garantir a qualidade e o funcionamento correto das funcionalidades. Para executar a suíte de testes, use o comando:
 
@@ -143,7 +143,7 @@ Reposições (/replacements)
 
 🤝 Como Contribuir
 
-Contribuições são sempre bem-vindas! Se você deseja contribuir com o projeto, siga os passos abaixo:
+**Contribuições são sempre bem-vindas! Se você deseja contribuir com o projeto, siga os passos abaixo:**
 
     Faça um Fork deste repositório.
 
