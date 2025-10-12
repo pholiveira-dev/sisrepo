@@ -1,67 +1,70 @@
-## SisRepo - Sistema de Gestão de Reposições Acadêmicas
+# SisRepo - Sistema de Gestão de Reposições Acadêmicas
 
 ![Node.js](https://img.shields.io/badge/Node.js-18.x-green?logo=node.js)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Status](https://img.shields.io/badge/status-active-success)
 
-## 📑 Sumário
-- [Descrição](#-sisrepo---sistema-de-gestão-de-reposições-acadêmicas)
-- [Tecnologias e Justificativas](#-tecnologias-e-justificativa-das-escolhas)
-- [Instalação](#-instalação-e-execução)
-- [Autenticação](#️-autenticação-e-autorização)
-- [Endpoints](#️-endpoints-da-api)
-- [Testes](#-testes)
-- [Contribuição](#-como-contribuir)
-- [Licença](#-licença)
+## Sumário
+- [Descrição](#descrição)
+- [Funcionalidades Principais](#funcionalidades-principais)
+- [Tecnologias e Justificativa das Escolhas](#tecnologias-e-justificativa-das-escolhas)
+- [Pré-requisitos](#pré-requisitos)
+- [Instalação e Execução](#instalação-e-execução)
+- [Autenticação e Autorização](#autenticação-e-autorização)
+- [Endpoints da API](#endpoints-da-api)
+- [Testes](#testes)
+- [Como Contribuir](#como-contribuir)
+- [Licença](#licença)
 
+---
 
-O **SisRepo** é uma API RESTful projetada para simplificar o gerenciamento e o rastreamento de reposições de aulas para alunos em estágios clínicos e laboratoriais. A plataforma permite o cadastro de alunos, a criação de horários disponíveis (slots) e a alocação dinâmica desses horários para as reposições necessárias.
+## Descrição
 
-## Funcionalidades principais
+O **SisRepo** é uma API RESTful projetada para simplificar o gerenciamento e o rastreamento de reposições de aulas para alunos em estágios clínicos e laboratoriais.  
+A plataforma permite o cadastro de alunos, a criação de horários disponíveis (*slots*) e a alocação dinâmica desses horários para as reposições necessárias.
 
-A arquitetura do SisRepo foi definida para garantir um ambiente de desenvolvimento eficiente e um sistema de produção confiável e escalável.
+---
+
+## Funcionalidades Principais
+
+A arquitetura do SisRepo foi planejada para oferecer um ambiente de desenvolvimento eficiente e um sistema de produção escalável e confiável.
+
+---
 
 ## Tecnologias e Justificativa das Escolhas
 
 | Categoria | Tecnologia | Justificativa da Escolha |
 | :--- | :--- | :--- |
-| **Backend** | **Node.js** | Escolhido pela sua **natureza assíncrona e não-bloqueante**, ideal para construir APIs de alta performance que lidam com múltiplas requisições simultaneamente, garantindo respostas rápidas. |
-| **Framework** | **Express** | O *framework* minimalista padrão do Node.js. Oferece flexibilidade e leveza, sendo perfeito para o controle granular de roteamento, *middlewares* de segurança e manipulação de requisições. |
-| **Banco de Dados** | **PostgreSQL** | **Escolha principal devido à sua robustez, confiabilidade (ACID compliance) e suporte avançado a dados relacionais.** É ideal para um sistema acadêmico onde a integridade dos dados (relações entre alunos, agendamentos e usuários) é crítica. Oferece também funcionalidades avançadas como *Triggers* e *Stored Procedures*. |
-| **Query Builder** | **Knex.js** | Um construtor de consultas SQL versátil e poderoso. Permite escrever consultas de forma segura e legível em JavaScript, protegendo contra SQL Injection e facilitando a transição entre diferentes dialetos de banco de dados (SQLite no dev, Postgres na prod). |
-| **Banco de Dados (Dev)** | **SQLite3** | Utilizado exclusivamente para **desenvolvimento local e testes unitários**, devido à sua instalação zero-configuração e ao armazenamento em um único arquivo, agilizando o setup do ambiente. |
-| **Segurança** | **JWT & Middlewares** | A autenticação é feita via JWT, que é um padrão leve e *stateless*. O controle de acesso (RBAC) é implementado através de *middlewares* no Express, garantindo a separação de responsabilidades (Autenticação vs. Autorização). |
-| **Testes** | **Jest** | Framework de testes rápido e amplamente adotado no ecossistema JavaScript, usado para testes unitários em todas as camadas e testes de integração de rotas, garantindo a qualidade do código. |
+| **Backend** | **Node.js** | Ambiente assíncrono e não-bloqueante, ideal para APIs de alta performance que lidam com múltiplas requisições simultaneamente. |
+| **Framework** | **Express** | Framework minimalista e flexível, oferecendo controle granular de rotas, middlewares e manipulação de requisições. |
+| **Banco de Dados (Produção)** | **PostgreSQL** | Robustez e confiabilidade (ACID), com suporte avançado a dados relacionais e recursos como *triggers* e *stored procedures*. |
+| **Query Builder** | **Knex.js** | Construtor de consultas SQL seguro e legível, com proteção contra SQL Injection e portabilidade entre bancos. |
+| **Banco de Dados (Desenvolvimento)** | **SQLite3** | Banco leve e sem configuração, ideal para desenvolvimento local e testes. |
+| **Segurança** | **JWT e Middlewares** | Autenticação *stateless* via JWT e controle de acesso por papéis (RBAC) implementado em middlewares Express. |
+| **Testes** | **Jest** | Framework de testes rápido e amplamente utilizado, garantindo qualidade e confiabilidade do código. |
 
-
-
-## Tecnologias Utilizadas
-
-| Categoria         | Tecnologia    | Descrição                                         |
-| :---------------- | :------------ | :------------------------------------------------ |
-| **Backend** | Node.js       | Ambiente de execução JavaScript no servidor.      |
-| **Framework** | Express       | Framework para roteamento e middlewares.          |
-| **Banco de Dados**| SQLite3       | Banco de dados relacional para desenvolvimento.   |
-| **Query Builder** | Knex.js       | Gerenciamento de migrations e consultas SQL.      |
-| **Testes** | Jest          | Framework para testes unitários e de integração.  |
+---
 
 ## Pré-requisitos
 
-Antes de começar, certifique-se de que você tem os seguintes softwares instalados em sua máquina:
+Antes de começar, certifique-se de ter os seguintes softwares instalados:
 
-- [Node.js](https://nodejs.org/en/) (versão 18.x ou superior)
-- [NPM](https://www.npmjs.com/) ou [Yarn](https://yarnpkg.com/) (gerenciador de pacotes)
-- [Git](https://git-scm.com/) (para versionamento de código)
-- **Opcional, mas Recomendado:** Uma instância local do **PostgreSQL** ou Docker para simular o ambiente de produção.
+- [Node.js](https://nodejs.org/en/) (versão 18.x ou superior)  
+- [NPM](https://www.npmjs.com/) ou [Yarn](https://yarnpkg.com/)  
+- [Git](https://git-scm.com/)  
+- **Opcional:** Instância local do **PostgreSQL** ou Docker para simular o ambiente de produção.
+
+---
 
 ## Instalação e Execução
 
-Siga os passos abaixo para configurar e rodar o projeto em seu ambiente local.
+Siga os passos abaixo para configurar e executar o projeto localmente.
 
-**1. Clone o repositório:**
+### 1. Clone o repositório:
 ```bash
-git clone [https://github.com/pholiveira-dev/sisrepo.git](https://github.com/pholiveira-dev/sisrepo.git)
+git clone https://github.com/pholiveira-dev/sisrepo.git
 cd sisrepo
+
 
 **2. Instale as dependências:**
 
