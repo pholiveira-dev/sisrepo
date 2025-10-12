@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Agendamentos</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f5f7fa; color: #333; }
+        .container { background: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); margin-bottom: 25px; }
+        h1, h2 { color: #17a2b8; text-align: center; }
+        .info { background: #d1ecf1; padding: 15px; border-radius: 8px; border: 1px solid #bee5eb; color: #0c5460; margin-bottom: 20px; font-size: 0.9em; }
+        button { padding: 10px 18px; margin: 5px; border: none; border-radius: 6px; cursor: pointer; color: white; font-weight: bold; transition: background-color 0.3s; }
+        .btn-list { background-color: #17a2b8; }
+        .btn-list:hover { background-color: #117a8b; }
+        .btn-put { background-color: #ffc107; color: #333; }
+        .btn-put:hover { background-color: #e0a800; }
+        .btn-delete { background-color: #dc3545; }
+        .btn-delete:hover { background-color: #c82333; }
+        input, select { padding: 8px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; }
+        #listaSchedules { list-style: none; padding: 0; }
+        #listaSchedules li { background: #f9f9f9; margin-bottom: 10px; padding: 15px; border-radius: 8px; border-left: 5px solid #17a2b8; display: flex; justify-content: space-between; align-items: center; }
+        .schedule-details { flex-grow: 1; }
+        .schedule-actions button { margin-left: 10px; }
+        .resultado { margin-top: 15px; padding: 15px; border: 1px solid #ddd; background-color: #e9ecef; border-radius: 8px; white-space: pre-wrap; word-wrap: break-word; max-height: 250px; overflow-y: auto; font-size: 0.9em; }
+        .nav-link { display: block; text-align: center; margin-top: 15px; color: #28a745; text-decoration: none; }
+        .nav-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <h1>Gerenciamento de Agendamentos</h1>
+    
+    <div class="info">
+        <p><strong>Status de Autenticação:</strong> <span id="authStatus">Carregando...</span></p>
+        <p><strong>Usuário Logado:</strong> <span id="loggedUser">N/A</span> | <strong>Posição:</strong> <span id="userPosition">N/A</span></p>
+        <p><strong><small>Nota:</small></strong> Listagem é pública. PUT/DELETE exigem login e permissão específica.</p>
+    </div>
+
+    <!-- GET (Listar Agendamentos) -->
+    <div class="container">
+        <h2>Agendamentos Cadastrados (GET /schedules)</h2>
+        <button class="btn-list" onclick="listarSchedules()">Recarregar Lista de Agendamentos</button>
+        <ul id="listaSchedules">
+            <li>Clique no botão para carregar a lista.</li>
+        </ul>
+        <div class="resultado" id="resultadoGet" style="display: none;"></div>
+        <a href="/schedules/create" class="nav-link">Criar Novo Agendamento</a>
+    </div>
+
+    <!-- PUT/DELETE (Ações no Agendamento) -->
+    <div class="container">
+        <h2>Ações: Atualizar/Excluir (PUT/DELETE)</h2>
+        <p>Insira o ID do agendamento e os novos dados para atualizar ou excluir:</p>
+        <input type="number" id="actionScheduleId" placeholder="ID do Agendamento" value="1" min="1" style="width: 150px;">
+        <input type="date" id="actionScheduleDate" placeholder="Nova Data (Opcional)" style="width: 150px;">
+        
+        <select id="actionShift" style="width: 150px;">
+            <option value="">(Turno Inalterado)</option>
+            <option value="Manhã">Manhã</option>
+            <option value="Tarde">Tarde</option>
+            <option value="Noite">Noite</option>
+        </select>
+
+        <input type="number" id="actionMaxCapacity" placeholder="Nova Capacidade (Opcional)" style="width: 150px;">
+        
+        <button class="btn-put" onclick="atualizarScheduleManual()">PUT Agendamento</button>
+        <button class="btn-delete" onclick="excluirScheduleManual()">DELETE Agendamento</button>
+        <div class="resultado" id="resultadoAcoes">Aguardando ações...</div>
+    </div>
+
+    <script>
+        const API_BASE_URL = window.location.origin;
+        const userToken = localStorage.getItem('userToken');
+
+        // Inicializa o status de autenticação
+        const authStatusElement = document.getElementById('authStatus');
+        const loggedUserElement = document.getElementById('loggedUser');
+        const userPositionElement = document.getElementById('userPosition');
+        
+        if (userToken) {
+            authStatusElement.textContent = 'Token Ativo';
+            authStatusElement.style.color = '#155724';
+            loggedUserElement.textContent = localStorage.getItem('userName') || 'Desconhecido';
+            userPositionElement.textContent = localStorage.getItem('userPosition') || 'N/A';
+        } else {
+            authStatusElement.textContent = 'Token não encontrado.';
+            authStatusElement.style.color = '#dc3545';
+        }
+
+        function getAuthHeaders() {
+            if (!userToken) {
+                // Não alertamos para GET, pois a rota é pública, mas para PUT/DELETE precisamos.
+                return null;
+            }
+            return {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${userToken}`
+            };
+        }
+
+        function exibirResultado(idElemento, status, dados) {
+            const elemento = document.getElementById(idElemento);
+            elemento.innerHTML = `<strong>Status: ${status}</strong>\n\n` + JSON.stringify(dados, null, 2);
+            elemento.style.display = 'block';
+        }
+
+        // 1. GET (Listar Agendamentos)
+        async function listarSchedules() {
+            // GET /schedules é pública, mas passamos headers para autenticar para as outras ações
+            const headers = getAuthHeaders() || { 'Content-Type': 'application/json' }; 
+
+            const lista = document.getElementById('listaSchedules');
+            lista.innerHTML = '<li>Carregando...</li>';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/schedules`, { headers });
+                const status = response.status;
+                const data = await response.json().catch(() => ({ message: 'Erro ao processar dados.', rawStatus: status }));
+                
+                if (response.ok) {
+                    lista.innerHTML = '';
+                    if (data.length === 0) {
+                        lista.innerHTML = '<li>Nenhum agendamento cadastrado.</li>';
+                    }
+                    data.forEach(item => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                            <div class="schedule-details">
+                                <strong>ID: ${item.id_schedule}</strong> | 
+                                Data: ${item.schedule_date} | 
+                                Turno: ${item.shift} | 
+                                Capacidade: ${item.max_capacity}
+                                <br><small>Criado pelo Usuário ID: ${item.created_by_user_id}</small>
+                            </div>
+                            <div class="schedule-actions">
+                                <!-- Passa o ID para que as ações manuais saibam qual ID usar -->
+                                <button class="btn-put" onclick="preencherFormAcao(${item.id_schedule}, '${item.schedule_date}', '${item.shift}', ${item.max_capacity})">Editar</button>
+                                <button class="btn-delete" onclick="excluirSchedule(${item.id_schedule})">Excluir</button>
+                            </div>
+                        `;
+                        lista.appendChild(li);
+                    });
+                } else {
+                    lista.innerHTML = `<li>Erro ao carregar (Status ${status}): ${data.message || 'Sem detalhes do erro.'}</li>`;
+                    console.error('Erro GET Schedules:', data);
+                }
+                exibirResultado('resultadoGet', status, data);
+            } catch (error) {
+                lista.innerHTML = `<li>Erro de conexão: ${error.message}.</li>`;
+                console.error('Erro de Rede:', error);
+            }
+        }
+
+        function preencherFormAcao(id, date, shift, capacity) {
+             document.getElementById('actionScheduleId').value = id;
+             // Note: A data do banco pode estar em formato incompatível, 
+             // ajuste o valor para a data atual do sistema se o formato do banco for 'YYYY-MM-DD'
+             document.getElementById('actionScheduleDate').value = date.split('T')[0];
+             document.getElementById('actionShift').value = shift;
+             document.getElementById('actionMaxCapacity').value = capacity;
+             alert(`Formulário de Ações preenchido com ID ${id}. Use PUT para atualizar.`);
+        }
+
+        // 2. PUT (Atualizar Agendamento)
+        async function atualizarSchedule(id, scheduleData) {
+            const headers = getAuthHeaders();
+            if (!headers) { alert('Faça o login para atualizar agendamentos.'); return; }
+            
+            const URL = `${API_BASE_URL}/schedules/${id}`;
+
+            try {
+                const response = await fetch(URL, {
+                    method: 'PUT',
+                    headers: headers,
+                    body: JSON.stringify(scheduleData),
+                });
+
+                const status = response.status;
+                const data = await response.json().catch(() => ({ message: 'Sucesso, sem corpo de resposta (ex: 204 No Content)' }));
+                exibirResultado('resultadoAcoes', status, data);
+                
+                if (response.ok) {
+                    listarSchedules();
+                }
+
+            } catch (error) {
+                exibirResultado('resultadoAcoes', 'ERRO', { mensagem: `Erro de conexão: ${error.message}` });
+                console.error("Erro PUT:", error);
+            }
+        }
+
+        function atualizarScheduleManual() {
+            const id = document.getElementById('actionScheduleId').value;
+            const date = document.getElementById('actionScheduleDate').value;
+            const shift = document.getElementById('actionShift').value;
+            const capacity = document.getElementById('actionMaxCapacity').value;
+            
+            if (!id) {
+                exibirResultado('resultadoAcoes', 'ALERTA', { mensagem: 'Informe o ID do agendamento.' });
+                return;
+            }
+
+            const scheduleData = {};
+            if (date) scheduleData.schedule_date = date;
+            if (shift) scheduleData.shift = shift;
+            if (capacity) scheduleData.max_capacity = parseInt(capacity, 10);
+
+            if (Object.keys(scheduleData).length === 0) {
+                 exibirResultado('resultadoAcoes', 'ALERTA', { mensagem: 'Informe pelo menos um campo para atualizar.' });
+                 return;
+            }
+
+            atualizarSchedule(id, scheduleData);
+        }
+
+        // 3. DELETE (Excluir Agendamento)
+        async function excluirSchedule(id) {
+            const headers = getAuthHeaders();
+            if (!headers) { alert('Faça o login para excluir agendamentos.'); return; }
+
+            const confirmacao = confirm(`Tem certeza que deseja EXCLUIR o agendamento com ID ${id}?`);
+            if (!confirmacao) return;
+            
+            const URL = `${API_BASE_URL}/schedules/${id}`;
+
+            try {
+                const response = await fetch(URL, {
+                    method: 'DELETE',
+                    headers: headers,
+                });
+                
+                const status = response.status;
+                const data = await response.json().catch(() => ({ message: 'Item excluído com sucesso (provavelmente 204 No Content)' }));
+                exibirResultado('resultadoAcoes', status, data);
+
+                if (response.ok || status === 204) {
+                    listarSchedules();
+                }
+
+            } catch (error) {
+                exibirResultado('resultadoAcoes', 'ERRO', { mensagem: `Erro de conexão: ${error.message}` });
+                console.error("Erro DELETE:", error);
+            }
+        }
+        
+        function excluirScheduleManual() {
+             const id = document.getElementById('actionScheduleId').value;
+             if (!id) {
+                exibirResultado('resultadoAcoes', 'ALERTA', { mensagem: 'Informe o ID do agendamento.' });
+                return;
+            }
+            excluirSchedule(id);
+        }
+
+        window.onload = listarSchedules; // Carrega a lista automaticamente ao abrir a página
+    </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Aplicação Full-Stack</title>
+    <!-- Usando Tailwind CSS para estilo rápido e responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f7f7; }
+        .spinner { border: 4px solid rgba(0, 0, 0, 0.1); border-left-color: #ffffff; border-radius: 50%; width: 16px; height: 16px; animation: spin 1s linear infinite; display: inline-block; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-xl shadow-2xl border-t-4 border-indigo-500">
+        
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Página Inicial do Front-End</h1>
+        <p class="text-gray-600 mb-8">Este arquivo (`index.html`) está sendo servido pelo servidor Express. Teste a comunicação API abaixo!</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Card de Listagem de Usuários -->
+            <div class="bg-indigo-50 border border-indigo-200 p-5 rounded-lg">
+                <h2 class="text-xl font-semibold text-indigo-700 mb-4">Listar Usuários (GET)</h2>
+                <button id="btnListar" class="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 shadow-md flex items-center justify-center">
+                    <span id="textListar">Chamar API: /api/usuarios</span>
+                    <span id="loadingListar" class="spinner ml-2 hidden"></span>
+                </button>
+                <div id="listaUsuarios" class="mt-4 text-sm text-gray-700 bg-white p-3 rounded-md max-h-40 overflow-y-auto border border-gray-200">
+                    Aguardando...
+                </div>
+            </div>
+
+            <!-- Card de Criação de Usuário -->
+            <div class="bg-green-50 border border-green-200 p-5 rounded-lg">
+                <h2 class="text-xl font-semibold text-green-700 mb-4">Criar Usuário (POST)</h2>
+                <input type="text" id="inputNome" placeholder="Nome" class="w-full mb-3 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                <input type="email" id="inputEmail" placeholder="Email" class="w-full mb-3 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                <button id="btnCriar" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 shadow-md flex items-center justify-center">
+                    <span id="textCriar">Enviar para API</span>
+                    <span id="loadingCriar" class="spinner ml-2 hidden" style="border-left-color: #fff;"></span>
+                </button>
+                <div id="statusCriacao" class="mt-4 text-sm text-gray-700 bg-white p-3 rounded-md border border-gray-200">
+                    Aguardando...
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Função utilitária para manipular o estado do botão (loading/disabled)
+        function setButtonState(buttonId, isLoading, defaultText, loadingText = 'Aguarde...') {
+            const button = document.getElementById(buttonId);
+            const textSpan = document.getElementById(`text${buttonId.slice(3)}`);
+            const loadingSpan = document.getElementById(`loading${buttonId.slice(3)}`);
+            
+            button.disabled = isLoading;
+            if (isLoading) {
+                textSpan.textContent = loadingText;
+                loadingSpan.classList.remove('hidden');
+                button.classList.add('opacity-70', 'cursor-not-allowed');
+            } else {
+                textSpan.textContent = defaultText;
+                loadingSpan.classList.add('hidden');
+                button.classList.remove('opacity-70', 'cursor-not-allowed');
+            }
+        }
+
+        // Função para testar a rota GET /api/usuarios
+        document.getElementById('btnListar').addEventListener('click', async () => {
+            const listaDiv = document.getElementById('listaUsuarios');
+            
+            setButtonState('btnListar', true, 'Chamar API: /api/usuarios', 'Buscando...');
+            listaDiv.innerHTML = '<p class="text-center text-indigo-500">Carregando dados da API...</p>';
+
+            try {
+                // Tenta chamar a API do próprio servidor
+                const response = await fetch('/api/usuarios');
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    const html = data.dados.map(user => 
+                        `<p class="truncate border-b border-gray-100 py-1"><span class="font-semibold text-indigo-700">ID ${user.id}:</span> ${user.nome} (${user.email})</p>`
+                    ).join('');
+                    
+                    listaDiv.innerHTML = html.length > 0 ? html : '<p class="text-gray-500">Nenhum usuário encontrado (mock).</p>';
+                } else {
+                    // Erro retornado pelo servidor (e.g., status 404, 500)
+                    const errorData = await response.json().catch(() => ({}));
+                    listaDiv.innerHTML = `<p class="text-red-500 font-semibold">Erro ${response.status}: ${errorData.mensagem || response.statusText || 'Falha ao processar a requisição.'}</p>`;
+                }
+            } catch (error) {
+                // Erro de rede (servidor inalcançável)
+                listaDiv.innerHTML = `<p class="text-red-600 font-semibold">Erro de Conexão: Verifique se o servidor Node.js/Express está rodando na porta correta.</p><p class="text-xs text-red-500 mt-1">Detalhe: ${error.message}</p>`;
+            } finally {
+                setButtonState('btnListar', false, 'Chamar API: /api/usuarios');
+            }
+        });
+
+        // Função para testar a rota POST /api/usuarios
+        document.getElementById('btnCriar').addEventListener('click', async () => {
+            const statusDiv = document.getElementById('statusCriacao');
+            const inputNome = document.getElementById('inputNome');
+            const inputEmail = document.getElementById('inputEmail');
+            
+            const nome = inputNome.value.trim();
+            const email = inputEmail.value.trim();
+
+            if (!nome || !email) {
+                statusDiv.innerHTML = '<span class="text-yellow-600 font-semibold">Atenção: Nome e Email são obrigatórios!</span>';
+                return;
+            }
+
+            setButtonState('btnCriar', true, 'Enviar para API', 'Criando...');
+            statusDiv.innerHTML = '<p class="text-center text-green-500">Enviando dados para a API...</p>';
+
+            try {
+                const response = await fetch('/api/usuarios', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nome, email })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Sucesso
+                    statusDiv.innerHTML = `<span class="text-green-600 font-semibold">✅ Sucesso! ${data.mensagem}. ID gerado: ${data.id}</span>`;
+                    
+                    // Limpar campos
+                    inputNome.value = '';
+                    inputEmail.value = '';
+                    
+                    // Se a criação foi bem-sucedida, atualiza a lista automaticamente (opcional)
+                    document.getElementById('btnListar').click(); 
+                    
+                } else {
+                    // Erro de validação ou do servidor
+                    statusDiv.innerHTML = `<span class="text-red-500 font-semibold">❌ Falha (${response.status}): ${data.erro || data.mensagem || response.statusText}</span>`;
+                }
+            } catch (error) {
+                // Erro de rede
+                statusDiv.innerHTML = `<p class="text-red-600 font-semibold">Erro de Conexão: Não foi possível alcançar a API.</p><p class="text-xs text-red-500 mt-1">Detalhe: ${error.message}</p>`;
+            } finally {
+                setButtonState('btnCriar', false, 'Enviar para API');
+            }
+        });
+
+        // Estado inicial
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('listaUsuarios').innerHTML = '<p class="text-gray-500">Clique em "Chamar API" para carregar.</p>';
+            document.getElementById('statusCriacao').innerHTML = '<p class="text-gray-500">Preencha o formulário e clique em "Enviar".</p>';
+        });
+    </script>
+</body>
+</html>

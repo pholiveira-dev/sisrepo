@@ -27,8 +27,28 @@ app.get('/register', (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login');
 })
+
 const schedulesRouter = require('./src/routes/scheduleRoutes');
 app.use('/schedules', schedulesRouter);
+
+app.get('/admin/users', (req, res) => {
+    res.render('users_managment');
+});
+
+app.get('/admin/students', (req, res) => {
+    res.render('students_managment');
+});
+
+// ROTAS DE FRONT-END PARA SCHEDULES
+app.get('/schedules/create', (req, res) => {
+    // Note: Esta rota deve ser protegida com middlewares, mas está aqui para testes de EJS
+    res.render('create_schedule', { message: null, isSuccess: false });
+});
+
+app.get('/schedules', (req, res) => {
+    // Esta é a rota principal de gerenciamento/visualização de agendamentos
+    res.render('schedules_management');
+});
 
 const PORT = 3000;
 

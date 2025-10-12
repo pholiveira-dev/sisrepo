@@ -8,7 +8,7 @@ router.get('/', schedulesController.getAll);
 
 router.get('/:id_schedule', schedulesController.getSchedule)
 
-router.post('/', 
+router.post('/create', 
     authMiddleware,
     roleMiddleware.canCreateStudent,
     schedulesController.postSchedule

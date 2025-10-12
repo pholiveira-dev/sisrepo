@@ -13,7 +13,7 @@ router.get('/create',
     (req, res) => {
         res.render('cadastrarAluno', { message: null, isSuccess: false });
     }
-)
+);
 
 // ROTA PRIVADA PARA A CRIAÇÃO DO ALUNO
 router.post('/',
@@ -25,6 +25,7 @@ router.post('/',
 router.get('/',
     authMiddleware,
     StudentController.getAll
-)
+);
+
 
 module.exports = router;
