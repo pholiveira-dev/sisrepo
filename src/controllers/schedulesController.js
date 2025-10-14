@@ -4,13 +4,17 @@ async function getSchedule(req, res) {
     try {
         const { id_schedule } = req.params;
 
-        const filterSchedule = await SchedulesService.findById(id_schedule)
+        const filterSchedule = await SchedulesService.findById(id_schedule);
+
+        if(!filterSchedule) {
+            return res.status(404).json({ message: 'Agendamento não encontrado no sistema.' });
+        }
 
         return res.status(200).json(filterSchedule);
 
     } catch (error) {
         console.error(error)
-        return res.status(404).json({ message: 'Reposição não encontrada no sistema.' })
+        return res.status(500).json({ message: 'Erro interno do servidor ao buscar o agendamento.' });
     }
 }
 
@@ -22,7 +26,7 @@ async function getAll(req, res) {
 
     } catch (error) {
         console.error(error);
-        return res.status(404).json({ message: 'Erro ao encontrar as reposições.' });
+        return res.status(500).json({ message: 'Erro interno do servidor ao tentar encontrar todos os agendamentos.' });
     }
 }
 
@@ -31,6 +35,10 @@ async function postSchedule(req, res) {
 
         const id_user  = req.user.id_user
         const { schedule_date, shift, max_capacity } = req.body;
+
+        if (!schedule_date || !shift || !max_capacity) {
+            return res.status(400).json({ message: 'Todos os campos de agendamento (data, turno e capacidade) são obrigatórios.' });
+}
 
         const scheduleData = { 
             schedule_date: schedule_date, 
@@ -41,11 +49,11 @@ async function postSchedule(req, res) {
 
         const newSchedule = await SchedulesService.create(scheduleData);
 
-        return res.status(200).json(newSchedule);
+        return res.status(201).json(newSchedule);
 
     } catch (error) {
         console.error(error);
-        return res.status(404).json({ message: 'Não foi possível criar a reposição.' });
+        return res.status(500).json({ message: 'Erro interno do servidor ao criar o agendamento.' });
     }
 }
 
@@ -58,7 +66,7 @@ async function putSchedule(req, res) {
         const scheduleData = {  };
 
         if(!id_schedule) {
-            return res.status(400).json({ message: 'id_schedule não informado.' })
+            return res.status(400).json({ message: 'id_schedule não informado.' });
         }
 
         if(schedule_date) scheduleData.schedule_date = schedule_date;
@@ -66,16 +74,20 @@ async function putSchedule(req, res) {
         if(max_capacity) scheduleData.max_capacity = max_capacity;
 
         if(Object.keys(scheduleData).length === 0) {
-            return res.status(400).json({ message: 'Pelo menos um campo deve ser fornecido.' })
+            return res.status(400).json({ message: 'Pelo menos um campo deve ser fornecido.' });
         }        
 
         const update = await SchedulesService.update(id_schedule, scheduleData);
+
+        if(!update) {
+            return res.status(404).json({ message:  `Agendamento com ID ${id_schedule} não encontrado para atualização.` });
+        }
 
             return res.status(200).json(update);
         
     } catch (error) {
         console.error(error);
-        return res.status(400).json({ message: 'Não foi possível atualizar os dados da reposição.' })
+        return res.status(500).json({ message: 'Erro interno do servidor ao atualizar o agendamento.' });
     }
 }
 
@@ -84,15 +96,20 @@ async function delSchedule(req, res) {
         const { id_schedule } = req.params;
 
         if(!id_schedule) {
-            return res.status(400).json({ message: 'Não foi possível encontrar o id_schedule.' })
+            return res.status(400).json({ message: 'Não foi possível encontrar o id_schedule.' });
         }
 
         const delSchedule = await SchedulesService.delete(id_schedule);
 
-        return res.status(200).json(delSchedule)
+        if(!delSchedule) {
+            return res.status(404).json({ message: 'Não foi possível deletar o agendamento.' });
+        }
+
+        return res.status(200).json(delSchedule);
+
     } catch (error) {
         console.error(error);
-        return res.status(404).json({ message: 'Não foi possível deletar a reposição.' })
+        return res.status(500).json({ message: 'Erro interno do servidor ao tentar deletar o agendamento.' });
     }
 }
 
