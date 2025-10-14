@@ -1,6 +1,7 @@
 const ReplacementsModel = require('../models/ReplacementsModel');
 
 class ReplacementRepository {
+
     static async findById(id_replacement) {
         return ReplacementsModel.findById(id_replacement);
     }
@@ -9,8 +10,8 @@ class ReplacementRepository {
         return ReplacementsModel.findAll();
     }
 
-    static async create(replacementData) {
-        return ReplacementRepository.create(replacementData);
+    static async create(id_user, replacementData) {
+        return ReplacementRepository.create(id_user, replacementData);
     }
 
     static async update(id_replacement, replacementData) {
