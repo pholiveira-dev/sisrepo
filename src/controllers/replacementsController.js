@@ -5,6 +5,10 @@ async function getAll (req, res) {
 
         const allReplacements = await ReplacementsService.findAll();
 
+        if(!allReplacements && Array.isArray(allReplacements)) {
+            return res.status(500).json({ message: 'Erro interno ao buscar o recurso de reposição.' })
+        }
+
         return res.status(200).json(allReplacements);
         
     } catch (error) {
@@ -24,14 +28,14 @@ async function getById(req, res) {
         const findById = await ReplacementsService.findById(id_replacement);
 
         if(!findById) {
-            return res.status(404).json({ message: 'Não foi possível encontrar o agendamento.' })
+            return res.status(404).json({ message: 'Reposição não encontrada no banco de dados.' })
         }
 
         return res.status(200).json(findById);
 
     } catch (error) {
         console.error(error);
-        return res.status(404).json({ message: `Não foi possível encontrar o agendamento ${id_replacement}` });
+        return res.status(500).json({ message: `Não foi possível encontrar a reposição.` });
     }
 }
 
@@ -43,24 +47,10 @@ async function postReplacement(req, res) {
 
     const { student_id, schedule_id, justification, is_present, schedule_at } = req.body;
 
-    if(!id_user) {
-        return res.status(500).json({ message: 'Erro interno com o servidor.' });
-    }
-
-    if(!student_id) {
-        return res.status(400).json({ message: 'ID do estudante não encontrado.' });
-    }
-
-    if(!schedule_id) {
-        return res.status(400).json({ message: 'ID do agendamento não encontrado.' });
-    }
-
-    if(!justification) {
-        return res.status(400).json({ message: 'A justificativa é um campo obrigatório.' });
-    }
-
-    if(!schedule_at) {
-        return res.status(400).json({ message: 'O horário é um campo obrigatório a ser preenchido.' })
+    if(!id_user || !student_id || !schedule_id || !justification || !schedule_at) {
+        return res.status(400).json({ 
+            message: 'Todos os campos obrigatórios (ID do estudante, ID do agendamento, justificativa e horário) devem ser preenchidos.' 
+        });
     }
 
     const replacementData = 
@@ -86,7 +76,11 @@ async function postReplacement(req, res) {
 async function putReplacement (req, res) {
     try {
         const { id_replacement } = req.params;
-        const { student_id, schedule_id, justification, is_present, schedule_at } = req.body
+        const { student_id, schedule_id, justification, is_present, schedule_at } = req.body;
+
+        if(!id_replacement) {
+            return res.status(400).json({ message: 'ID da reposição é obrigatório.' })
+        }
 
         const replacementData = { };
 
@@ -97,6 +91,10 @@ async function putReplacement (req, res) {
         if(schedule_at) replacementData.schedule_at = schedule_at;
 
         const updateReplacement = await ReplacementsService.update(id_replacement, replacementData);
+
+        if(!updateReplacement) {
+            return res.status(404).json({ message: `Agendamento com ID ${id_replacement} não encontrado para atualização.` })
+        }
 
         return res.status(200).json(updateReplacement);
 
@@ -125,7 +123,7 @@ async function deleteReplacement(req, res) {
         
     } catch (error) {
         console.error(error);
-        return res.status(400).json({ message: 'Não foi possível deletar o agendameto.' })
+        return res.status(500).json({ message: 'Erro interno do servidor.' })
     }
 }
 
