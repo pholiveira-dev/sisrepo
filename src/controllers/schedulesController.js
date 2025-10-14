@@ -33,8 +33,12 @@ async function getAll(req, res) {
 async function postSchedule(req, res) {
     try {
 
-        const id_user  = req.user.id_user
+        const id_user  = req.user.id_user ? req.user.id_user : null;
         const { schedule_date, shift, max_capacity } = req.body;
+
+        if(!id_user) {
+            return res.status(401).json({ message: 'Usuário não autenticado ou token inválido.' })
+        }
 
         if (!schedule_date || !shift || !max_capacity) {
             return res.status(400).json({ message: 'Todos os campos de agendamento (data, turno e capacidade) são obrigatórios.' });
@@ -63,11 +67,12 @@ async function putSchedule(req, res) {
         const  { id_schedule } = req.params;
         const { schedule_date, shift, max_capacity }  = req.body;
 
-        const scheduleData = {  };
-
         if(!id_schedule) {
-            return res.status(400).json({ message: 'id_schedule não informado.' });
+            return res.status(404).json({ message: 'id_schedule não informado.' });
         }
+
+
+        const scheduleData = {  };
 
         if(schedule_date) scheduleData.schedule_date = schedule_date;
         if(shift) scheduleData.shift = shift;
@@ -102,7 +107,7 @@ async function delSchedule(req, res) {
         const delSchedule = await SchedulesService.delete(id_schedule);
 
         if(!delSchedule) {
-            return res.status(404).json({ message: 'Não foi possível deletar o agendamento.' });
+            return res.status(404).json({ message: `Agendamento com ID ${id_schedule} não encontrado para exclusão.` });
         }
 
         return res.status(200).json(delSchedule);
