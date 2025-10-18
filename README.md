@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/SEU_USUARIO/SEU_REPOSITORIO/branch/main/graph/badge.svg)](https://codecov.io/gh/pholiveira-dev/sisrepo)
+
 # SisRepo - Sistema de Gestão de Reposições Acadêmicas
 
 ![Node.js](https://img.shields.io/badge/Node.js-18.x-green?logo=node.js)
