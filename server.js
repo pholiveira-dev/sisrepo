@@ -13,17 +13,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const userRoutes = require('./src/routes/userRoutes');
+app.use('/auth', userRoutes);
 
-const studentRoutes = require('./src/routes/studentRoutes');
-app.use('/students', studentRoutes)
-
-app.get('/register', (req, res) => {
-    res.render('register');
-})
-
-app.get('/login', (req, res) => {
-    res.render('login');
-})
+const studentsRoutes = require('./src/routes/studentsRoutes');
+app.use('/students', studentsRoutes)
 
 const schedulesRouter = require('./src/routes/scheduleRoutes');
 app.use('/schedules', schedulesRouter);

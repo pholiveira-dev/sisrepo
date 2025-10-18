@@ -1,7 +1,7 @@
 const knex = require('../knex');
 const TABLE_NAME = 'students';
 
-class StudentModel {
+class StudentsModel {
     static async findById(id_student) {
         return knex(TABLE_NAME)
         .where({ id_student })
@@ -13,14 +13,15 @@ class StudentModel {
         .select(['id_student','email', 'rgm', 'created_by_user_id', 'updated_by_user_id']);
     }
 
-    static async create(studentData, creatorId, creatorPosition) {
+    static async create(studentData, created_by_user_id) {
+
         const [newStudent] = await knex(TABLE_NAME)
-        .insert(studentData, creatorId, creatorPosition)
+        .insert(studentData, created_by_user_id)
         .returning(['id_student','email', 'rgm', 'created_by_user_id', 'updated_by_user_id']);
         return newStudent;
     }
 
-    static async update(id_student, studentData) {
+    static async update(id_student, id_user, studentData) {
         const [updateStudent] = await knex(TABLE_NAME)
         .where({ id_student })
         .update(studentData)
@@ -53,4 +54,4 @@ class StudentModel {
     }
 }
 
-module.exports = StudentModel;
+module.exports = StudentsModel;
