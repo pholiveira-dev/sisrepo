@@ -1,6 +1,6 @@
 const ReplacementsModel = require('../models/ReplacementsModel');
 
-class ReplacementRepository {
+class ReplacementsRepository {
 
     static async findById(id_replacement) {
         return ReplacementsModel.findById(id_replacement);
@@ -11,16 +11,16 @@ class ReplacementRepository {
     }
 
     static async create(id_user, replacementData) {
-        return ReplacementRepository.create(id_user, replacementData);
+        return ReplacementsModel.create(id_user, replacementData);
     }
 
     static async update(id_replacement, replacementData) {
-        return ReplacementRepository.update(id_replacement, replacementData);
+        return ReplacementsModel.update(id_replacement, replacementData);
     }
 
     static async delete(id_replacement) {
-        return ReplacementRepository.delete(id_replacement);
+        return ReplacementsModel.delete(id_replacement);
     }
 }
 
-module.exports = ReplacementRepository;
+module.exports = ReplacementsRepository;

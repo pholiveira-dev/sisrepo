@@ -1,4 +1,4 @@
-const ReplacementsRepository = require('../models/ReplacementsModel');
+const ReplacementsRepository = require('../repositories/ReplacementsRepository');
 
 class ReplacementService {
     
