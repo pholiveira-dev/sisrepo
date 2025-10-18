@@ -94,7 +94,7 @@ async function deleteStudent(req, res) {
 
         const delStudent = await StudentsService.delete(id_student);
         
-        return res.status(204).end();
+        return res.status(204).json(delStudent);
 
     } catch (error) {
         console.error(error);
