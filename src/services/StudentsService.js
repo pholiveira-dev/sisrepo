@@ -19,7 +19,7 @@ class StudentsService {
         return student;
     }
 
-    static async create(studentData, created_by_user_id) {
+    static async create(studentData, id_user) {
 
         const rgm = studentData.rgm;
 
@@ -43,11 +43,11 @@ class StudentsService {
             rgm: rgm,
             current_semester: studentData.current_semester,
             access_code: access_code,
-            created_by_user_id: created_by_user_id,
-            updated_by_user_id: created_by_user_id
+            created_by_user_id: id_user,
+            updated_by_user_id: id_user
         }
 
-        const newStudent = await StudentsRepository.create(dataStudent, created_by_user_id);
+        const newStudent = await StudentsRepository.create(dataStudent, id_user);
 
         return newStudent;
 

@@ -40,11 +40,15 @@ async function getId(req, res) {
 
         const user = await UserService.findById(id_user);
 
+        if (!user) {
+            return res.status(404).json({ message: 'ID do usuário não encontrado.' })
+        }
+
         return res.status(200).json(user);
 
     } catch (error) {
         console.error(error);
-        return res.status(400).json({ message: 'ID do usuário não encontrado.' })
+        return res.status(500).json({ message: 'Erro interno ao buscar o usuário.' })
     }
 }
 

@@ -36,7 +36,7 @@ async function getId(req, res) {
 
 async function postStudent(req, res) {
     try {
-        const created_by_user_id = req.user.id_user;
+        const id_user = req.user.id_user;
 
         const { name, email, rgm, current_semester } = req.body;
 
@@ -48,7 +48,7 @@ async function postStudent(req, res) {
             rgm: rgmString, 
             current_semester };
 
-        const newStudent = await StudentsService.create(studentData, created_by_user_id);
+        const newStudent = await StudentsService.create(studentData, id_user);
 
         return  res.status(201).json(newStudent); 
 
@@ -72,7 +72,7 @@ async function putStudent(req, res) {
         const { email, rgm } = req.body;
 
         if(!id_student) {
-            res.status(400).json({ message: 'ID do estudante não fornecido na URL.' })
+            return res.status(400).json({ message: 'ID do estudante não fornecido na URL.' })
         }
 
         if(email) studentData.email = email;

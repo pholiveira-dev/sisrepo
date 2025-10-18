@@ -9,8 +9,8 @@ class StudentsRepository {
         return StudentsModel.findAll();
     }
 
-    static async create(studentData, created_by_user_id) {
-        return StudentsModel.create(studentData, created_by_user_id);
+    static async create(studentData, id_user) {
+        return StudentsModel.create(studentData, id_user);
     }
 
     static async update(id_student, id_user, studentData) {

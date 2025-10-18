@@ -13,10 +13,10 @@ class StudentsModel {
         .select(['id_student','email', 'rgm', 'created_by_user_id', 'updated_by_user_id']);
     }
 
-    static async create(studentData, created_by_user_id) {
+    static async create(studentData, id_user) {
 
         const [newStudent] = await knex(TABLE_NAME)
-        .insert(studentData, created_by_user_id)
+        .insert(studentData, id_user)
         .returning(['id_student','email', 'rgm', 'created_by_user_id', 'updated_by_user_id']);
         return newStudent;
     }
