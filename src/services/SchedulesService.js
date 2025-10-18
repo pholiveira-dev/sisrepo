@@ -2,10 +2,6 @@ const SchedlesRepository = require('../repositories/SchedulesRepository');
 
 class SchedulesService {
 
-    static async autenticate() {
-
-    }
-
     static async create(scheduleData) {
 
         const { schedule_date, shift } = scheduleData;
