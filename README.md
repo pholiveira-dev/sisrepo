@@ -78,15 +78,19 @@ Antes de começar, certifique-se de ter instalado:
 
 Siga os passos abaixo para configurar e executar o projeto localmente:
 
-### 1️⃣ Clone o repositório
-```bash
+## 1️⃣ Clone o repositório
 
-**### 2️⃣ Instale as dependências**
+## 2️⃣ Instale as dependências
+
+```bash
 npm install
 # ou
 yarn install
+```bash
 
-**### 3️⃣ Configure as variáveis de ambiente**
+## 3️⃣ Configure as variáveis de ambiente
+
+```bash
 Crie um arquivo .env na raiz do projeto e use o .env.example como referência.
 # Ambiente da aplicação (development, production)
 NODE_ENV=development
@@ -100,24 +104,33 @@ DB_FILENAME=./src/database/db.sqlite
 
 git clone https://github.com/pholiveira-dev/sisrepo.git
 cd sisrepo
+```bash
 
-4️⃣ Execute as migrações do banco de dados
+## 4️⃣ Execute as migrações do banco de dados
+```bash
 npx knex migrate:latest
+```bash
 
-5️⃣ Inicie o servidor
+## 5️⃣ Inicie o servidor
+
+```bash
 npm run dev
 # ou
 yarn dev
+```bash
 
-A API estará disponível em:
+## A API estará disponível em:
+```bash
 - http://localhost:3333
+```bash
 
-**Autenticação e Autorização**
+## Autenticação e Autorização
 
 Para acessar rotas privadas, o usuário deve enviar um Token JWT válido no cabeçalho da requisição.
 
 **Login**
 
+```bash
 POST /auth/login
 Content-Type: application/json
 
@@ -125,24 +138,28 @@ Content-Type: application/json
   "email": "user@example.com",
   "password": "user_password"
 }
+```bash
 
-Uso do Token
+## Uso do Token
 
 Inclua o token em todas as requisições privadas:
 | Cabeçalho       | Valor                    |
 | --------------- | ------------------------ |
 | `Authorization` | `Bearer [SEU_TOKEN_JWT]` |
 
-Testes
+## Testes
 
 O projeto utiliza o Jest para garantir a qualidade e a confiabilidade do código.
 
-▶️ Executar os testes:
+## Executar os testes:
+
+```bash
 npm test
 # ou
 yarn test
+```bash
 
-Os testes cobrem:
+## Os testes cobrem:
 
 Lógica de negócio dos Services
 
@@ -154,22 +171,22 @@ Validação de dados e respostas esperadas
 
 Nosso objetivo é manter alta cobertura de código, especialmente nas rotas críticas de autenticação e gestão de dados.
 
-## 📡 Endpoints da API
+## Endpoints da API
 
-👨‍🎓 Alunos (/students)
+Alunos (/students)
 | Método   | Endpoint        | Descrição                                  |
 | -------- | --------------- | ------------------------------------------ |
 | **POST** | `/students`     | Cria um novo aluno                         |
 | **GET**  | `/students`     | Lista todos os alunos                      |
 | **GET**  | `/students/:id` | Retorna os detalhes de um aluno específico |
 
-🗓️ Agendamentos (/schedules)
+Agendamentos (/schedules)
 | Método   | Endpoint     | Descrição                        |
 | -------- | ------------ | -------------------------------- |
 | **POST** | `/schedules` | Cria um novo slot de agendamento |
 | **GET**  | `/schedules` | Lista todos os slots disponíveis |
 
-🔁 Reposições (/replacements)
+Reposições (/replacements)
 | Método     | Endpoint            | Descrição                           |
 | ---------- | ------------------- | ----------------------------------- |
 | **POST**   | `/replacements`     | Agenda uma reposição para um aluno  |
@@ -179,20 +196,27 @@ Nosso objetivo é manter alta cobertura de código, especialmente nas rotas crí
 🤝 Como Contribuir
 
 Contribuições são sempre bem-vindas! 💡
+
 Siga os passos abaixo:
 
-1. Faça um Fork deste repositório
+## 1. Faça um Fork deste repositório
 
-2. Crie uma nova branch:
+## 2. Crie uma nova branch:
+```bash
 git checkout -b feature/sua-feature
+```bash
 
-3. Faça suas alterações e realize o commit:
+## 3. Faça suas alterações e realize o commit:
+```bash
 git commit -m "feat: adiciona nova funcionalidade"
+```bash
 
-4. Envie para o seu fork:
+## 4. Envie para o seu fork:
+```bash
 git push origin feature/sua-feature
+```bash
 
-5. Abra um Pull Request
+## 5. Abra um Pull Request
 
 📄 Licença
 
