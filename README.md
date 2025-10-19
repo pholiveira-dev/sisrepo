@@ -1,4 +1,12 @@
-# 📘 SisRepo - Sistema de Gestão de Reposições Acadêmicas
+[![codecov](https://codecov.io/gh/SEU_USUARIO/SEU_REPOSITORIO/branch/main/graph/badge.svg)](https://codecov.io/gh/pholiveira-dev/sisrepo) 
+
+# SisRepo - Sistema de Gestão de Reposições Acadêmicas
+
+![Node.js](https://img.shields.io/badge/Node.js-18.x-green?logo=node.js)
+
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+
+![Status](https://img.shields.io/badge/status-active-success) 
 
 ---
 
@@ -17,7 +25,7 @@
 
 ---
 
-## 🧩 Descrição
+## Descrição
 
 O **SisRepo** é uma API RESTful projetada para simplificar o **gerenciamento e o rastreamento de reposições de aulas** de alunos em **estágios clínicos e laboratoriais**.
 
@@ -28,7 +36,7 @@ A plataforma permite:
 
 ---
 
-## ⚙️ Funcionalidades Principais
+## Funcionalidades Principais
 
 A arquitetura do **SisRepo** foi planejada para oferecer:
 - Ambiente de desenvolvimento eficiente  
@@ -37,7 +45,7 @@ A arquitetura do **SisRepo** foi planejada para oferecer:
 
 ---
 
-## 🧠 Tecnologias e Justificativa das Escolhas
+## Tecnologias e Justificativa das Escolhas
 
 | Categoria | Tecnologia | Justificativa da Escolha |
 |------------|-------------|---------------------------|
@@ -66,19 +74,19 @@ Antes de começar, certifique-se de ter instalado:
 
 Siga os passos abaixo para configurar e executar o projeto localmente.
 
-### 1️⃣ Clone o repositório
+### Clone o repositório
 
 ```bash
 git clone https://github.com/pholiveira-dev/sisrepo.git
 cd sisrepo
 
-## Instale as dependências
+**### Instale as dependências**
 
 npm install
 # ou
 yarn install
 
-## Configure as variáveis de ambiente
+**### Configure as variáveis de ambiente**
 
 # Ambiente da aplicação (development, production)
 NODE_ENV=development
@@ -90,11 +98,11 @@ APP_SECRET=sua-chave-secreta-aqui
 DB_CLIENT=sqlite3
 DB_FILENAME=./src/database/db.sqlite
 
-## Execute as migrações no banco de dados
+**### Execute as migrações no banco de dados**
 
 npx knex migrate:latest
 
-## Inicie o servidor:
+**### Inicie o servidor:**
 
 npm run dev
 # ou
