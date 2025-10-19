@@ -1,120 +1,84 @@
-SisRepo - Sistema de Gestão de Reposições Acadêmicas
+# 📘 SisRepo - Sistema de Gestão de Reposições Acadêmicas
 
-Sumário
+---
 
-Descrição
+## 📑 Sumário
 
-Funcionalidades Principais
+- [Descrição](#-descrição)
+- [Funcionalidades Principais](#-funcionalidades-principais)
+- [Tecnologias e Justificativa das-Escolhas](#-tecnologias-e-justificativa-das-escolhas)
+- [Pré-requisitos](#-pré-requisitos)
+- [Instalação e Execução](#-instalação-e-execução)
+- [Autenticação e Autorização](#-autenticação-e-autorização)
+- [Endpoints da API](#-endpoints-da-api)
+- [Testes](#-testes)
+- [Como Contribuir](#-como-contribuir)
+- [Licença](#-licença)
 
-Tecnologias e Justificativa das Escolhas
+---
 
-Pré-requisitos
+## 🧩 Descrição
 
-Instalação e Execução
+O **SisRepo** é uma API RESTful projetada para simplificar o **gerenciamento e o rastreamento de reposições de aulas** de alunos em **estágios clínicos e laboratoriais**.
 
-Autenticação e Autorização
+A plataforma permite:
+- Cadastro de alunos
+- Criação de horários disponíveis (slots)
+- Alocação dinâmica de horários para reposições necessárias
 
-Endpoints da API
+---
 
-Testes
+## ⚙️ Funcionalidades Principais
 
-Como Contribuir
+A arquitetura do **SisRepo** foi planejada para oferecer:
+- Ambiente de desenvolvimento eficiente  
+- Sistema de produção **escalável e confiável**  
+- Separação clara de camadas (Model, Repository, Service e Controller)
 
-Licença
+---
 
-Descrição
+## 🧠 Tecnologias e Justificativa das Escolhas
 
-O SisRepo é uma API RESTful projetada para simplificar o gerenciamento e o rastreamento de reposições de aulas para alunos em estágios clínicos e laboratoriais.
+| Categoria | Tecnologia | Justificativa da Escolha |
+|------------|-------------|---------------------------|
+| **Backend** | Node.js | Ambiente assíncrono e não-bloqueante, ideal para APIs de alta performance. |
+| **Framework** | Express | Framework minimalista e flexível, com controle granular de rotas e middlewares. |
+| **Banco de Dados (Produção)** | PostgreSQL | Banco robusto, confiável (ACID) e com suporte a triggers e stored procedures. |
+| **Query Builder** | Knex.js | Construtor SQL seguro, legível e portátil, com proteção contra SQL Injection. |
+| **Banco de Dados (Desenvolvimento)** | SQLite3 | Banco leve e sem configuração, ideal para desenvolvimento local e testes. |
+| **Segurança** | JWT + Middlewares | Autenticação stateless via JWT e controle de acesso baseado em papéis (RBAC). |
+| **Testes** | Jest | Framework de testes rápido e amplamente utilizado, garantindo qualidade e confiabilidade. |
 
-A plataforma permite o cadastro de alunos, a criação de horários disponíveis (slots) e a alocação dinâmica desses horários para as reposições necessárias.
+---
 
-Funcionalidades Principais
+## 🧰 Pré-requisitos
 
-A arquitetura do SisRepo foi planejada para oferecer um ambiente de desenvolvimento eficiente e um sistema de produção escalável e confiável.
+Antes de começar, certifique-se de ter instalado:
 
-Tecnologias e Justificativa das Escolhas
+- **Node.js** (versão 18.x ou superior)
+- **NPM** ou **Yarn**
+- **Git**
+- (Opcional) Instância local do **PostgreSQL** ou **Docker**
 
-Categoria
+---
 
-Tecnologia
-
-Justificativa da Escolha
-
-Backend
-
-Node.js
-
-Ambiente assíncrono e não-bloqueante, ideal para APIs de alta performance que lidam com múltiplas requisições simultaneamente.
-
-Framework
-
-Express
-
-Framework minimalista e flexível, oferecendo controle granular de rotas, middlewares e manipulação de requisições.
-
-Banco de Dados (Produção)
-
-PostgreSQL
-
-Robustez e confiabilidade (ACID), com suporte avançado a dados relacionais e recursos como triggers e stored procedures.
-
-Query Builder
-
-Knex.js
-
-Construtor de consultas SQL seguro e legível, com proteção contra SQL Injection e portabilidade entre bancos.
-
-Banco de Dados (Desenvolvimento)
-
-SQLite3
-
-Banco leve e sem configuração, ideal para desenvolvimento local e testes.
-
-Segurança
-
-JWT e Middlewares
-
-Autenticação stateless via JWT e controle de acesso por papéis (RBAC) implementado em middlewares Express.
-
-Testes
-
-Jest
-
-Framework de testes rápido e amplamente utilizado, garantindo qualidade e confiabilidade do código.
-
-Pré-requisitos
-
-Antes de começar, certifique-se de ter os seguintes softwares instalados:
-
-Node.js (versão 18.x ou superior)
-
-NPM ou Yarn
-
-Git
-
-Opcional: Instância local do PostgreSQL ou Docker para simular o ambiente de produção.
-
-Instalação e Execução
+## 🚀 Instalação e Execução
 
 Siga os passos abaixo para configurar e executar o projeto localmente.
 
-1. Clone o repositório:
+### 1️⃣ Clone o repositório
 
-git clone [https://github.com/pholiveira-dev/sisrepo.git](https://github.com/pholiveira-dev/sisrepo.git)
+```bash
+git clone https://github.com/pholiveira-dev/sisrepo.git
 cd sisrepo
 
-
-2. Instale as dependências:
+## Instale as dependências
 
 npm install
 # ou
 yarn install
 
-
-3. Configure as variáveis de ambiente:
-Crie um arquivo chamado .env na raiz do projeto e preencha-o com as configurações necessárias. Você pode usar o arquivo .env.example como base.
-
-.env
+## Configure as variáveis de ambiente
 
 # Ambiente da aplicação (development, production)
 NODE_ENV=development
@@ -126,85 +90,112 @@ APP_SECRET=sua-chave-secreta-aqui
 DB_CLIENT=sqlite3
 DB_FILENAME=./src/database/db.sqlite
 
-
-4. Execute as migrações do banco de dados:
-Este comando criará as tabelas necessárias no banco de dados SQLite.
+## Execute as migrações no banco de dados
 
 npx knex migrate:latest
 
-
-5. Inicie o servidor:
+## Inicie o servidor:
 
 npm run dev
 # ou
 yarn dev
 
+## A API estará disponível em:
+👉 http://localhost:3333
 
-A API estará disponível em http://localhost:3333.
+🔐 Autenticação e Autorização
 
-Autenticação e Autorização
+Para acessar rotas privadas, o usuário deve enviar um Token JWT válido no cabeçalho da requisição.
 
-Para acessar as rotas privadas da API, o usuário deve enviar um Token JWT válido no cabeçalho da requisição.
+🔑 Login
 
-Login: Envie um POST para /auth/login com email e senha para obter o Token.
+## Envie um POST para:
 
-Uso do Token: Inclua o Token no cabeçalho de todas as requisições privadas no formato:
+/auth/login
 
-CHAVE (KEY): Authorization
+Com:
 
-VALOR (VALUE): Bearer [SEU TOKEN JWT]
+{
+  "email": "usuario@exemplo.com",
+  "password": "senha123"
+}
 
-Testes
+## Uso do Token
 
-O projeto utiliza o Jest para garantir a qualidade e o funcionamento correto das funcionalidades. Para executar a suíte de testes, use o comando:
+Inclua o token em todas as requisições privadas:
+
+KEY: Authorization
+VALUE: Bearer [SEU_TOKEN_JWT]
+
+## Testes
+
+O projeto utiliza o Jest para garantir a qualidade e confiabilidade do código.
+
+## ▶️ Executar os testes:
 
 npm test
 # ou
 yarn test
 
+Os testes verificam:
 
-Os testes unitários são focados em garantir a lógica de negócio dos Services e a correta delegação de responsabilidades aos Repositórios. Nosso objetivo é manter uma alta cobertura de código, assegurando a confiabilidade do sistema, especialmente nas rotas críticas de autenticação e gestão de dados.
+Lógica de negócio dos Services
 
-Endpoints da API
+Integração com os Repositories
 
-Abaixo estão os principais endpoints disponíveis na API.
+Autenticação e controle de acesso
 
-Alunos (/students)
+Validação de dados e respostas esperadas
 
-POST /students: Cria um novo aluno.
+Nosso objetivo é manter alta cobertura de código, especialmente nas rotas críticas de autenticação e gestão de dados.
 
-GET /students: Lista todos os alunos.
+## Endpoints da API
 
-GET /students/:id: Retorna os detalhes de um aluno específico.
+👨‍🎓 Alunos (/students)
 
-Agendamentos (/schedules)
+| Método   | Endpoint        | Descrição                                  |
+| -------- | --------------- | ------------------------------------------ |
+| **POST** | `/students`     | Cria um novo aluno                         |
+| **GET**  | `/students`     | Lista todos os alunos                      |
+| **GET**  | `/students/:id` | Retorna os detalhes de um aluno específico |
 
-POST /schedules: Cria um novo slot de agendamento.
+🗓️ Agendamentos (/schedules)
 
-GET /schedules: Lista todos os slots disponíveis.
+| Método   | Endpoint     | Descrição                        |
+| -------- | ------------ | -------------------------------- |
+| **POST** | `/schedules` | Cria um novo slot de agendamento |
+| **GET**  | `/schedules` | Lista todos os slots disponíveis |
 
-Reposições (/replacements)
+🔁 Reposições (/replacements)
 
-POST /replacements: Agenda uma reposição para um aluno em um slot.
+| Método     | Endpoint            | Descrição                           |
+| ---------- | ------------------- | ----------------------------------- |
+| **POST**   | `/replacements`     | Agenda uma reposição para um aluno  |
+| **GET**    | `/replacements`     | Lista todas as reposições agendadas |
+| **DELETE** | `/replacements/:id` | Cancela uma reposição               |
 
-GET /replacements: Lista todas as reposições agendadas.
+## 🤝 Como Contribuir
 
-DELETE /replacements/:id: Cancela uma reposição.
+Contribuições são sempre bem-vindas! 💡
+Siga os passos abaixo:
 
-🤝 Como Contribuir
+Faça um Fork deste repositório
 
-Contribuições são sempre bem-vindas! Se você deseja contribuir com o projeto, siga os passos abaixo:
+Crie uma nova branch:
 
-Faça um Fork deste repositório.
+git checkout -b feature/sua-feature
 
-Crie uma nova Branch: git checkout -b feature/sua-feature.
+Faça suas alterações e realize o commit:
 
-Faça suas alterações e realize o Commit: git commit -m 'feat: Adiciona nova funcionalidade'.
+git commit -m "feat: adiciona nova funcionalidade"
 
-Envie para a sua Branch: git push origin feature/sua-feature.
+Envie para o seu fork:
 
-Abra um Pull Request.
+git push origin feature/sua-feature
+
+Abra um Pull Request
 
 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+Este projeto está sob a licença MIT.
+Consulte o arquivo LICENSE
