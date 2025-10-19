@@ -93,18 +93,21 @@ yarn install
 
 ## 3️⃣ Configure as variáveis de ambiente
 
-```bash
 Crie um arquivo .env na raiz do projeto e use o .env.example como referência.
 # Ambiente da aplicação (development, production)
+```bash
 NODE_ENV=development
 
 # Segredo para geração de tokens JWT
+```bash
 APP_SECRET=sua-chave-secreta-aqui
 
 # Configuração do Banco de Dados
+```bash
 DB_CLIENT=sqlite3
 DB_FILENAME=./src/database/db.sqlite
 
+```bash
 git clone https://github.com/pholiveira-dev/sisrepo.git
 cd sisrepo
 
@@ -201,17 +204,14 @@ Siga os passos abaixo:
 ### 2. Crie uma nova branch:
 ```bash
 git checkout -b feature/sua-feature
-```bash
 
 ### 3. Faça suas alterações e realize o commit:
 ```bash
 git commit -m "feat: adiciona nova funcionalidade"
-```bash
 
 ### 4. Envie para o seu fork:
 ```bash
 git push origin feature/sua-feature
-```bash
 
 ### 5. Abra um Pull Request
 
