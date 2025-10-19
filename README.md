@@ -78,9 +78,9 @@ Antes de começar, certifique-se de ter instalado:
 
 Siga os passos abaixo para configurar e executar o projeto localmente:
 
+```bash
 ## 1️⃣ Clone o repositório
 
-```bash
 git clone [https://github.com/pholiveira-dev/sisrepo.git](https://github.com/pholiveira-dev/sisrepo.git)
 cd sisrepo
 
