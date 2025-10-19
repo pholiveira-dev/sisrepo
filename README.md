@@ -80,13 +80,16 @@ Siga os passos abaixo para configurar e executar o projeto localmente:
 
 ## 1️⃣ Clone o repositório
 
+```bash
+git clone [https://github.com/pholiveira-dev/sisrepo.git](https://github.com/pholiveira-dev/sisrepo.git)
+cd sisrepo
+
 ## 2️⃣ Instale as dependências
 
 ```bash
 npm install
 # ou
 yarn install
-```bash
 
 ## 3️⃣ Configure as variáveis de ambiente
 
@@ -104,12 +107,10 @@ DB_FILENAME=./src/database/db.sqlite
 
 git clone https://github.com/pholiveira-dev/sisrepo.git
 cd sisrepo
-```bash
 
 ## 4️⃣ Execute as migrações do banco de dados
 ```bash
 npx knex migrate:latest
-```bash
 
 ## 5️⃣ Inicie o servidor
 
@@ -117,12 +118,10 @@ npx knex migrate:latest
 npm run dev
 # ou
 yarn dev
-```bash
 
 ## A API estará disponível em:
 ```bash
 - http://localhost:3333
-```bash
 
 ## Autenticação e Autorização
 
@@ -138,7 +137,6 @@ Content-Type: application/json
   "email": "user@example.com",
   "password": "user_password"
 }
-```bash
 
 ## Uso do Token
 
@@ -157,7 +155,6 @@ O projeto utiliza o Jest para garantir a qualidade e a confiabilidade do código
 npm test
 # ou
 yarn test
-```bash
 
 ## Os testes cobrem:
 
@@ -204,17 +201,14 @@ Siga os passos abaixo:
 ## 2. Crie uma nova branch:
 ```bash
 git checkout -b feature/sua-feature
-```bash
 
 ## 3. Faça suas alterações e realize o commit:
 ```bash
 git commit -m "feat: adiciona nova funcionalidade"
-```bash
 
 ## 4. Envie para o seu fork:
 ```bash
 git push origin feature/sua-feature
-```bash
 
 ## 5. Abra um Pull Request
 
