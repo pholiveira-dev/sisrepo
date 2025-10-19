@@ -12,16 +12,16 @@
 
 ## 📑 Sumário
 
-- [Descrição](#-descrição)
-- [Funcionalidades Principais](#-funcionalidades-principais)
-- [Tecnologias e Justificativa das-Escolhas](#-tecnologias-e-justificativa-das-escolhas)
-- [Pré-requisitos](#-pré-requisitos)
-- [Instalação e Execução](#-instalação-e-execução)
-- [Autenticação e Autorização](#-autenticação-e-autorização)
-- [Endpoints da API](#-endpoints-da-api)
-- [Testes](#-testes)
-- [Como Contribuir](#-como-contribuir)
-- [Licença](#-licença)
+- [Descrição](#-Descrição)
+- [Funcionalidades Principais](#-Funcionalidades-Principais)
+- [Tecnologias e Justificativa das-Escolhas](#-Tecnologias-e-Justificativa-das-Escolhas)
+- [Pré-requisitos](#-Pré-Requisitos)
+- [Instalação e Execução](#-Instalação-e-Execução)
+- [Autenticação e Autorização](#-Autenticação-e-Autorização)
+- [Endpoints da API](#-Endpoints-da-Api)
+- [Testes](#-Testes)
+- [Como Contribuir](#-Como-Contribuir)
+- [Licença](#-Licença)
 
 ---
 
@@ -70,23 +70,28 @@ Antes de começar, certifique-se de ter instalado:
 
 ---
 
-## 🚀 Instalação e Execução
+Instalação e Execução
 
 Siga os passos abaixo para configurar e executar o projeto localmente.
 
-### Clone o repositório
+1. Clone o repositório
 
-```bash
 git clone https://github.com/pholiveira-dev/sisrepo.git
 cd sisrepo
 
-**### Instale as dependências**
+
+2. Instale as dependências
 
 npm install
 # ou
 yarn install
 
-**### Configure as variáveis de ambiente**
+
+3. Configure as variáveis de ambiente
+
+Crie um arquivo chamado .env na raiz do projeto e preencha-o com as configurações necessárias.
+
+.env
 
 # Ambiente da aplicação (development, production)
 NODE_ENV=development
@@ -98,58 +103,63 @@ APP_SECRET=sua-chave-secreta-aqui
 DB_CLIENT=sqlite3
 DB_FILENAME=./src/database/db.sqlite
 
-**### Execute as migrações no banco de dados**
+
+4. Execute as migrações no banco de dados
+
+Este comando criará as tabelas necessárias no banco de dados SQLite.
 
 npx knex migrate:latest
 
-**### Inicie o servidor:**
+
+5. Inicie o servidor:
 
 npm run dev
 # ou
 yarn dev
 
-## A API estará disponível em:
-👉 http://localhost:3333
 
-🔐 Autenticação e Autorização
+A API estará disponível em http://localhost:3333.
+
+Autenticação e Autorização
 
 Para acessar rotas privadas, o usuário deve enviar um Token JWT válido no cabeçalho da requisição.
 
-🔑 Login
+Login
 
-## Envie um POST para:
+Envie uma requisição POST para: /auth/login
 
-/auth/login
-
-Com:
+Com o seguinte corpo:
 
 {
   "email": "usuario@exemplo.com",
   "password": "senha123"
 }
 
-## Uso do Token
 
-Inclua o token em todas as requisições privadas:
+Uso do Token
+
+Inclua o token em todas as requisições privadas no cabeçalho Authorization:
 
 KEY: Authorization
+
 VALUE: Bearer [SEU_TOKEN_JWT]
 
-## Testes
+Testes
 
 O projeto utiliza o Jest para garantir a qualidade e confiabilidade do código.
 
-## ▶️ Executar os testes:
+Executar os testes:
 
 npm test
 # ou
 yarn test
 
-Os testes verificam:
+
+Os testes unitários são focados em:
 
 Lógica de negócio dos Services
 
-Integração com os Repositories
+Correta delegação de responsabilidades aos Repositories
 
 Autenticação e controle de acesso
 
@@ -157,53 +167,106 @@ Validação de dados e respostas esperadas
 
 Nosso objetivo é manter alta cobertura de código, especialmente nas rotas críticas de autenticação e gestão de dados.
 
-## Endpoints da API
+Endpoints da API
 
-👨‍🎓 Alunos (/students)
+Abaixo estão os principais endpoints disponíveis na API.
 
-| Método   | Endpoint        | Descrição                                  |
-| -------- | --------------- | ------------------------------------------ |
-| **POST** | `/students`     | Cria um novo aluno                         |
-| **GET**  | `/students`     | Lista todos os alunos                      |
-| **GET**  | `/students/:id` | Retorna os detalhes de um aluno específico |
+Alunos (/students)
 
-🗓️ Agendamentos (/schedules)
+Método
 
-| Método   | Endpoint     | Descrição                        |
-| -------- | ------------ | -------------------------------- |
-| **POST** | `/schedules` | Cria um novo slot de agendamento |
-| **GET**  | `/schedules` | Lista todos os slots disponíveis |
+Endpoint
 
-🔁 Reposições (/replacements)
+Descrição
 
-| Método     | Endpoint            | Descrição                           |
-| ---------- | ------------------- | ----------------------------------- |
-| **POST**   | `/replacements`     | Agenda uma reposição para um aluno  |
-| **GET**    | `/replacements`     | Lista todas as reposições agendadas |
-| **DELETE** | `/replacements/:id` | Cancela uma reposição               |
+POST
 
-## 🤝 Como Contribuir
+/students
 
-Contribuições são sempre bem-vindas! 💡
-Siga os passos abaixo:
+Cria um novo aluno
+
+GET
+
+/students
+
+Lista todos os alunos
+
+GET
+
+/students/:id
+
+Retorna os detalhes de um aluno específico
+
+Agendamentos (/schedules)
+
+Método
+
+Endpoint
+
+Descrição
+
+POST
+
+/schedules
+
+Cria um novo slot de agendamento
+
+GET
+
+/schedules
+
+Lista todos os slots disponíveis
+
+Reposições (/replacements)
+
+Método
+
+Endpoint
+
+Descrição
+
+POST
+
+/replacements
+
+Agenda uma reposição para um aluno
+
+GET
+
+/replacements
+
+Lista todas as reposições agendadas
+
+DELETE
+
+/replacements/:id
+
+Cancela uma reposição
+
+Como Contribuir
+
+Contribuições são sempre bem-vindas! Siga os passos abaixo:
 
 Faça um Fork deste repositório
 
-Crie uma nova branch:
+Crie uma nova Branch:
 
 git checkout -b feature/sua-feature
 
-Faça suas alterações e realize o commit:
+
+Faça suas alterações e realize o Commit:
 
 git commit -m "feat: adiciona nova funcionalidade"
 
-Envie para o seu fork:
+
+Envie para o seu Fork:
 
 git push origin feature/sua-feature
 
+
 Abra um Pull Request
 
-📄 Licença
+Licença
 
 Este projeto está sob a licença MIT.
-Consulte o arquivo LICENSE
+Consulte o arquivo LICENSE para mais detalhes.
