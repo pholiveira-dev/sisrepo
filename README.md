@@ -12,17 +12,27 @@
 
 ## 📑 Sumário
 
-- [Descrição](#-Descrição)
-- [Funcionalidades Principais](#-Funcionalidades-Principais)
-- [Tecnologias e Justificativa das-Escolhas](#-Tecnologias-e-Justificativa-das-Escolhas)
-- [Pré-requisitos](#-Pré-Requisitos)
-- [Instalação e Execução](#-Instalação-e-Execução)
-- [Autenticação e Autorização](#-Autenticação-e-Autorização)
-- [Endpoints da API](#-Endpoints-da-Api)
-- [Testes](#-Testes)
-- [Como Contribuir](#-Como-Contribuir)
-- [Licença](#-Licença)
+Sumário
 
+Descrição
+
+Funcionalidades Principais
+
+Tecnologias e Justificativa das Escolhas
+
+Pré-requisitos
+
+Instalação e Execução
+
+Autenticação e Autorização
+
+Endpoints da API
+
+Testes
+
+Como Contribuir
+
+Licença
 ---
 
 ## Descrição
