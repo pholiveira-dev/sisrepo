@@ -190,27 +190,30 @@ Reposições (/replacements)
 | **GET**    | `/replacements`     | Lista todas as reposições agendadas |
 | **DELETE** | `/replacements/:id` | Cancela uma reposição               |
 
-🤝 Como Contribuir
+## 🤝 Como Contribuir
 
 Contribuições são sempre bem-vindas! 💡
 
 Siga os passos abaixo:
 
-## 1. Faça um Fork deste repositório
+### 1. Faça um Fork deste repositório
 
-## 2. Crie uma nova branch:
+### 2. Crie uma nova branch:
 ```bash
 git checkout -b feature/sua-feature
+```bash
 
-## 3. Faça suas alterações e realize o commit:
+### 3. Faça suas alterações e realize o commit:
 ```bash
 git commit -m "feat: adiciona nova funcionalidade"
+```bash
 
-## 4. Envie para o seu fork:
+### 4. Envie para o seu fork:
 ```bash
 git push origin feature/sua-feature
+```bash
 
-## 5. Abra um Pull Request
+### 5. Abra um Pull Request
 
 📄 Licença
 
