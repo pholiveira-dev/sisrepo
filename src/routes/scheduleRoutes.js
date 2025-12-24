@@ -8,7 +8,7 @@ scheduleRoutes.get('/', schedulesController.getAll);
 
 scheduleRoutes.get('/:id_schedule', schedulesController.getSchedule)
 
-scheduleRoutes.post('/create', 
+scheduleRoutes.post('/', 
     authMiddleware,
     roleMiddleware.canCreateStudent,
     schedulesController.postSchedule
